@@ -644,16 +644,6 @@ const CameraTile = ({ name, img, caption, idx = 0, span = 'normal' }) => {
         <div className="absolute top-2.5 right-2.5 w-4 h-4 border-r border-t border-white/40" />
         <div className="absolute bottom-2.5 left-2.5 w-4 h-4 border-l border-b border-white/40" />
         <div className="absolute bottom-2.5 right-2.5 w-4 h-4 border-r border-b border-white/40" />
-        {/* simple LIVE dot */}
-        <div className="absolute top-4 left-4 flex items-center gap-2">
-          <span className="relative flex h-2 w-2">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF3B30] opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF3B30]" />
-          </span>
-          <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-white/90 drop-shadow">Live</span>
-        </div>
-        {/* timestamp (hydration-safe) */}
-        <LiveClock className="absolute bottom-3 right-4 text-[10px] text-white/80 tracking-wider drop-shadow" />
       </div>
       <div className="p-5">
         <div className="font-display font-bold text-white text-lg leading-tight tracking-wide uppercase">{name}</div>
