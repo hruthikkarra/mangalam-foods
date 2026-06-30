@@ -66,9 +66,7 @@ const Navbar = () => {
   return (
     <motion.header
       initial={{ y: -80 }} animate={{ y: 0 }} transition={{ duration: 0.6 }}
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
-        scrolled ? 'bg-white/85 backdrop-blur-xl border-b border-[#B84A2B]/10 py-2' : 'bg-transparent py-4'
-      }`}
+      className={`sticky top-0 inset-x-0 z-50 bg-white border-b border-[#B84A2B]/10 py-2 shadow-sm transition-all duration-500`}
     >
       <div className="container flex h-24 items-center justify-between">
         <a href="#" className="flex items-center gap-3 group relative z-10">
@@ -345,7 +343,7 @@ const Products = () => {
 };
 
 /* ----------------------- A PEEK INTO OUR KITCHEN ------------------------- */
-const US_TRUCK = 'https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?crop=entropy&cs=srgb&fm=jpg&w=1600&q=85';
+const US_TRUCK = '/us_food_truck.png';
 
 const StageArrow = ({ direction = 'down', targetId, accent = '#B84A2B' }) => (
   <a href={`#${targetId}`} aria-label={direction === 'down' ? 'Next step' : 'Previous step'}
