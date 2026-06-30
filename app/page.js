@@ -39,8 +39,8 @@ const fadeUp = {
 const stagger = { visible: { transition: { staggerChildren: 0.08 } } };
 
 /* ------------------------------- LOGO MARK -------------------------------- */
-const LogoMark = ({ className = 'h-12 w-12' }) => (
-  <div className={`${className} relative shrink-0`}>
+const LogoMark = ({ className = 'h-16 w-16' }) => (
+  <div className={`relative ${className}`}>
     <img src={LOGO_URL} alt="Mangalam Foods" className="w-full h-full object-contain drop-shadow-md" />
   </div>
 );
@@ -70,9 +70,9 @@ const Navbar = () => {
         scrolled ? 'bg-white/85 backdrop-blur-xl border-b border-[#B84A2B]/10 py-2' : 'bg-transparent py-4'
       }`}
     >
-      <nav className="container flex items-center justify-between">
-        <a href="#top" className="flex items-center gap-3 group">
-          <LogoMark className="h-14 w-14 md:h-16 md:w-16" />
+      <div className="container flex h-24 items-center justify-between">
+        <a href="#" className="flex items-center gap-3 group relative z-10">
+          <LogoMark className="h-20 w-20 md:h-24 md:w-24" />
           <div className="leading-tight">
             <div className="font-display text-xl md:text-2xl font-bold text-[#8E3520] tracking-wide">Mangalam Foods</div>
             <div className="text-[10px] md:text-[11px] tracking-[0.22em] text-[#2C5F3F] font-medium uppercase">A Blessing at Every Table</div>
@@ -94,7 +94,7 @@ const Navbar = () => {
         <button onClick={() => setOpen(!open)} className="lg:hidden p-2 rounded-full bg-white/80 border border-[#B84A2B]/20">
           {open ? <X className="h-5 w-5 text-[#B84A2B]" /> : <Menu className="h-5 w-5 text-[#B84A2B]" />}
         </button>
-      </nav>
+      </div>
       <AnimatePresence>
         {open && (
           <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
@@ -345,7 +345,7 @@ const Products = () => {
 };
 
 /* ----------------------- A PEEK INTO OUR KITCHEN ------------------------- */
-const US_TRUCK = 'https://images.unsplash.com/photo-1599729576786-3bee5c793c6a?crop=entropy&cs=srgb&fm=jpg&w=1600&q=85';
+const US_TRUCK = 'https://images.unsplash.com/photo-1565123409695-7b5ef63a2efb?crop=entropy&cs=srgb&fm=jpg&w=1600&q=85';
 
 const StageArrow = ({ direction = 'down', targetId, accent = '#B84A2B' }) => (
   <a href={`#${targetId}`} aria-label={direction === 'down' ? 'Next step' : 'Previous step'}
@@ -531,12 +531,6 @@ const PeekIntoKitchen = () => {
                     style={{ background: `linear-gradient(135deg, ${s.accent}, ${s.accent}DD)` }}>
                     {s.tag}
                   </div>
-                  {s.isFinal && (
-                    <div className="absolute -bottom-6 right-6 bg-white px-4 py-2.5 rounded-full premium-shadow flex items-center gap-2">
-                      <Truck className="h-4 w-4 text-[#B84A2B]" />
-                      <span className="text-xs font-bold tracking-widest uppercase text-[#8E3520]">Made in the USA</span>
-                    </div>
-                  )}
                 </div>
 
                 {/* CONTENT */}
@@ -1200,14 +1194,14 @@ const Footer = () => (
     <div className="container">
       <div className="grid md:grid-cols-4 gap-10 mb-12">
         <div className="md:col-span-1">
-          <div className="flex items-center gap-3 mb-4">
-            <LogoMark className="h-16 w-16" />
-            <div>
+          <div className="flex flex-col items-center md:items-start max-w-sm">
+            <LogoMark className="h-20 w-20" />
+            <div className="mt-4">
               <div className="font-display text-xl font-bold text-white">Mangalam Foods</div>
               <div className="text-[10px] tracking-[0.2em] uppercase text-[#C9A961]">A Blessing at Every Table</div>
             </div>
           </div>
-          <p className="text-sm text-white/60 leading-relaxed">
+          <p className="mt-6 text-sm text-white/60 leading-relaxed text-center md:text-left">
             Authentic South Indian batters — naturally fermented, preservative-free, delivered fresh.
           </p>
         </div>
