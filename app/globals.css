@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 38% 97%;
+    --foreground: 24 25% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 25% 14%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 25% 14%;
+    --primary: 13 63% 45%;
+    --primary-foreground: 40 38% 97%;
+    --secondary: 140 36% 27%;
+    --secondary-foreground: 40 38% 97%;
+    --muted: 40 30% 92%;
+    --muted-foreground: 24 10% 40%;
+    --accent: 41 45% 59%;
+    --accent-foreground: 24 25% 14%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 30 20% 88%;
+    --input: 30 20% 88%;
+    --ring: 13 63% 45%;
+    --radius: 1rem;
+  }
+
+  * { @apply border-border; }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+    -webkit-font-smoothing: antialiased;
+  }
+  html { scroll-behavior: smooth; }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .font-display { font-family: 'Playfair Display', serif; }
+  .grain-bg {
+    background-color: #FBF7F0;
+    background-image:
+      radial-gradient(circle at 25% 25%, rgba(184, 74, 43, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 75% 75%, rgba(44, 95, 63, 0.04) 0%, transparent 50%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.72 0 0 0 0 0.29 0 0 0 0 0.17 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  }
+  .cream-bg { background-color: #FBF7F0; }
+  .text-terracotta { color: #B84A2B; }
+  .bg-terracotta { background-color: #B84A2B; }
+  .text-forest { color: #2C5F3F; }
+  .bg-forest { background-color: #2C5F3F; }
+  .text-gold { color: #C9A961; }
+  .bg-gold { background-color: #C9A961; }
+  .border-terracotta { border-color: #B84A2B; }
+  .border-forest { border-color: #2C5F3F; }
+  .premium-shadow { box-shadow: 0 10px 40px -10px rgba(184, 74, 43, 0.15), 0 4px 12px rgba(44, 95, 63, 0.06); }
+  .premium-shadow-lg { box-shadow: 0 25px 60px -15px rgba(184, 74, 43, 0.25), 0 8px 24px rgba(44, 95, 63, 0.08); }
+}
