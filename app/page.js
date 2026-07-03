@@ -19,6 +19,10 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { toast } from 'sonner';
 
 const IMG = {
+  idlyDosa: '/idly-dosa.png',
+  ancientGrains: '/ancient-grains.png',
+  naturallyFermented: '/naturally-fermented.png',
+  bringTradition: '/bring-tradition.png',
   heroDosa: 'https://images.unsplash.com/photo-1743517894265-c86ab035adef?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNzl8MHwxfHNlYXJjaHw0fHxkb3NhfGVufDB8fHx8MTc4Mjc1MzY5M3ww&ixlib=rb-4.1.0&q=85',
   dosa2: 'https://images.unsplash.com/photo-1708146464361-5c5ce4f9abb6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNzl8MHwxfHNlYXJjaHwzfHxkb3NhfGVufDB8fHx8MTc4Mjc1MzY5M3ww&ixlib=rb-4.1.0&q=85',
   dosaPour: 'https://images.pexels.com/photos/12392915/pexels-photo-12392915.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
@@ -40,8 +44,8 @@ const stagger = { visible: { transition: { staggerChildren: 0.08 } } };
 
 /* ------------------------------- LOGO MARK -------------------------------- */
 const LogoMark = ({ className = 'h-16 w-16' }) => (
-  <div className={`relative flex items-center justify-center bg-gradient-to-br from-[#B84A2B] to-[#8E3520] rounded-full text-white premium-shadow-lg ${className}`}>
-    <span className="font-display font-bold text-3xl">M</span>
+  <div className={`relative flex items-center justify-center ${className}`}>
+    <img src="/logo.png?v=2" alt="Mangalam Foods Logo" className="w-full h-full object-contain" />
   </div>
 );
 
@@ -178,26 +182,10 @@ const Hero = () => {
 
         <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9, delay: 0.2 }}
           className="relative">
-          <div className="relative aspect-[4/5] max-w-md mx-auto">
-            <motion.div animate={{ y: [0, -12, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute inset-0 rounded-[3rem] overflow-hidden premium-shadow-lg ring-1 ring-white">
-              <img src={IMG.heroDosa} alt="Fresh dosa with chutneys" className="w-full h-full object-cover" />
-            </motion.div>
-            <motion.div animate={{ y: [0, 12, 0] }} transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -bottom-8 -left-8 w-44 h-44 rounded-3xl overflow-hidden premium-shadow ring-4 ring-white">
-              <img src={IMG.idli} alt="Steamed idlis" className="w-full h-full object-cover" />
-            </motion.div>
-            <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -top-6 -right-6 w-36 h-36 rounded-3xl overflow-hidden premium-shadow ring-4 ring-white">
-              <img src={IMG.ragi} alt="Ragi millet" className="w-full h-full object-cover" />
-            </motion.div>
-            <motion.div animate={{ rotate: [0, 6, 0] }} transition={{ duration: 5, repeat: Infinity }}
-              className="absolute top-1/2 -right-10 bg-white rounded-2xl px-4 py-3 premium-shadow flex items-center gap-2">
-              <div className="h-10 w-10 rounded-full bg-[#FAF5EB] grid place-items-center"><Droplets className="h-5 w-5 text-[#B84A2B]" /></div>
-              <div>
-                <div className="text-xs text-foreground/60">Freshly Made</div>
-                <div className="text-sm font-bold text-[#8E3520]">Every Day</div>
-              </div>
+          <div className="relative w-full max-w-lg mx-auto">
+            <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+              className="relative rounded-3xl overflow-hidden premium-shadow-lg ring-1 ring-white">
+              <img src={IMG.ancientGrains} alt="Ancient Grains, Modern Nutrition" className="w-full h-auto object-cover" />
             </motion.div>
           </div>
         </motion.div>
@@ -263,7 +251,8 @@ const WhyChooseUs = () => {
           <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1A1410] mb-4">
             The Mangalam <span className="italic text-[#2C5F3F]">Difference</span>
           </h2>
-          <p className="text-foreground/70 text-lg">Fresh · Naturally Fermented · Clean Ingredients · Convenient.</p>
+          <p className="text-foreground/70 text-lg mb-8">Fresh · Naturally Fermented · Clean Ingredients · Convenient.</p>
+          <img src={IMG.naturallyFermented} alt="Fresh, naturally fermented, gut-friendly" className="w-full h-auto rounded-3xl premium-shadow-lg border border-[#B84A2B]/10" />
         </motion.div>
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-50px' }}
           className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -286,8 +275,8 @@ const WhyChooseUs = () => {
 /* -------------------------------- PRODUCTS -------------------------------- */
 const Products = () => {
   const products = [
-    { name: 'Idly Batter', desc: 'Naturally fermented South Indian batter made with heirloom rice & urad dal. Authentic flavor, supports easier digestion.', img: IMG.idli, badge: 'Bestseller' },
-    { name: 'Dosa Batter', desc: 'Traditional fermentation creates the perfect crispy dosa every time. Gut-friendly fermentation process, ready in minutes.', img: IMG.heroDosa, badge: 'Fresh' },
+    { name: 'Idly Batter', desc: 'Naturally fermented South Indian batter made with heirloom rice & urad dal. Authentic flavor, supports easier digestion.', img: IMG.idlyDosa, badge: 'Bestseller' },
+    { name: 'Dosa Batter', desc: 'Traditional fermentation creates the perfect crispy dosa every time. Gut-friendly fermentation process, ready in minutes.', img: IMG.idlyDosa, badge: 'Fresh' },
     { name: 'Multi Millet Batter', desc: 'Ancient grains reimagined — foxtail, pearl & little millets naturally fermented. Plant-powered, protein-rich, beyond rice.', img: IMG.ragi, badge: 'Ancient Grains' },
     { name: 'Ragi Dosa Batter', desc: 'Made with fiber-rich ragi and nutrient-dense millets. Gluten-free, naturally fermented for flavor and digestibility.', img: IMG.lentils2, badge: 'Gluten-Free' },
     { name: 'Instant Batter', desc: 'Fermented goodness, ready in minutes. Clean ingredients, no preservatives — fresh dosas in minutes.', img: IMG.dosa2, badge: 'Quick' },
@@ -1179,30 +1168,29 @@ const Contact = () => {
 
         <div className="grid lg:grid-cols-5 gap-8 max-w-6xl mx-auto">
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-            className="lg:col-span-2 space-y-4">
-            {[
-              { icon: MapPin, title: 'Visit Us', text: '621 Boston Post Rd, Sudbury, MA 01776' },
-              { icon: Phone, title: 'Call Us', text: '+1 774-287-5154', href: 'tel:+17742875154' },
-              { icon: Mail, title: 'Email Us', text: 'Admin@mangalamfoods.us', href: 'mailto:Admin@mangalamfoods.us' },
-            ].map((c) => (
-              <a key={c.title} href={c.href || '#'} className="block bg-white p-6 rounded-3xl border border-[#B84A2B]/10 hover:premium-shadow transition-all group">
-                <div className="flex items-start gap-4">
-                  <div className="h-12 w-12 rounded-2xl bg-[#FAF5EB] grid place-items-center shrink-0 group-hover:bg-[#B84A2B] transition-colors">
-                    <c.icon className="h-6 w-6 text-[#B84A2B] group-hover:text-white transition-colors" />
+            className="lg:col-span-2 space-y-6">
+            <div className="rounded-3xl overflow-hidden border border-[#B84A2B]/10 premium-shadow-lg">
+              <img src={IMG.bringTradition} alt="Bring Tradition to Your Table" className="w-full h-auto object-cover" />
+            </div>
+            
+            <div className="space-y-4">
+              {[
+                { icon: MapPin, title: 'Visit Us', text: '621 Boston Post Rd, Sudbury, MA 01776' },
+                { icon: Phone, title: 'Call Us', text: '+1 774-287-5154', href: 'tel:+17742875154' },
+                { icon: Mail, title: 'Email Us', text: 'Admin@mangalamfoods.us', href: 'mailto:Admin@mangalamfoods.us' },
+              ].map((c) => (
+                <a key={c.title} href={c.href || '#'} className="block bg-white p-6 rounded-3xl border border-[#B84A2B]/10 hover:premium-shadow transition-all group">
+                  <div className="flex items-start gap-4">
+                    <div className="h-12 w-12 rounded-2xl bg-[#FAF5EB] grid place-items-center shrink-0 group-hover:bg-[#B84A2B] transition-colors">
+                      <c.icon className="h-6 w-6 text-[#B84A2B] group-hover:text-white transition-colors" />
+                    </div>
+                    <div>
+                      <div className="text-xs uppercase tracking-widest text-foreground/50 font-semibold mb-1">{c.title}</div>
+                      <div className="font-display text-lg font-semibold text-[#1A1410]">{c.text}</div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-xs uppercase tracking-widest text-foreground/50 font-semibold mb-1">{c.title}</div>
-                    <div className="font-display text-lg font-semibold text-[#1A1410]">{c.text}</div>
-                  </div>
-                </div>
-              </a>
-            ))}
-            <div className="bg-white rounded-3xl overflow-hidden border border-[#B84A2B]/10 aspect-video">
-              <iframe
-                src="https://www.google.com/maps?q=621+Boston+Post+Rd,+Sudbury,+MA+01776&output=embed"
-                className="w-full h-full" loading="lazy" referrerPolicy="no-referrer-when-downgrade"
-                title="Mangalam Foods Location"
-              />
+                </a>
+              ))}
             </div>
           </motion.div>
 
