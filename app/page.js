@@ -458,12 +458,11 @@ const PeekIntoKitchen = () => {
                 Our Kitchen
               </span>
             </h1>
+            <p className="text-foreground/75 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl mx-auto">
+              From our kitchen reaches your table, every Mangalam product follows two simple rules &mdash; <strong className="text-[#8E3520]">keep it safe</strong>, and <strong className="text-[#2C5F3F]">keep it free of preservative</strong>.
+            </p>
             <p className="text-foreground/75 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl mx-auto">
-              From the fields till it reaches your table, we make sure everything we make and every step of the process
-              follows two rules &mdash; <strong className="text-[#8E3520]">keep it safe</strong> and <strong className="text-[#2C5F3F]">keep it preservative-free</strong>.
-              Here&rsquo;s a little glimpse into how we make our idli and dosa batter that millions enjoy every day.
-              The same hygienic process and care goes into making all our products. We wouldn&rsquo;t do anything less
-              when we serve our families and yours.
+              From the fields till it reaches your table &mdash; here&rsquo;s a glimpse into how we prepare our heirloom-grain, naturally fermented batters and foods.
             </p>
             <a href="#stage-1" className="inline-flex flex-col items-center gap-3 group">
               <span className="text-xs tracking-[0.35em] uppercase font-bold text-[#8E3520] group-hover:text-[#B84A2B] transition-colors">
