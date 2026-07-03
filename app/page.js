@@ -966,7 +966,7 @@ const OurPromise = () => {
 /* -------------------------------- OUR MISSION -------------------------------- */
 const Mission = () => (
   <section className="py-20 md:py-28 bg-[#1A1410] text-white relative overflow-hidden">
-    <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='%23C9A961' fill-rule='evenodd'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/svg%3E")" }} />
+    <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='%23C9A961' fill-rule='evenodd'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/svg%3E")` }} />
     <div className="container relative text-center max-w-3xl mx-auto">
       <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#C9A961] mb-4">Our Mission</span>
       <h2 className="font-display text-3xl md:text-5xl font-bold mb-8">
