@@ -132,16 +132,25 @@ const Hero = () => {
         <motion.div style={{ opacity }} variants={stagger} initial="hidden" animate="visible" className="relative">
           <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur border border-[#B84A2B]/15 mb-6 shadow-sm">
             <Sparkles className="h-4 w-4 text-[#C9A961]" />
-            <span className="text-xs tracking-[0.2em] uppercase font-semibold text-[#8E3520]">Farm to Kitchen • Naturally Fermented</span>
+            <span className="text-xs tracking-[0.2em] uppercase font-semibold text-[#8E3520]">Ancient Grains • Naturally Fermented • Modern Living</span>
           </motion.div>
           <motion.h1 variants={fadeUp} className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-[#1A1410] text-balance">
-            Freshness <span className="italic text-[#B84A2B]">You Can Taste.</span><br />
-            Tradition <span className="italic text-[#2C5F3F]">You Can Trust.</span>
+            Ancient Grains. <span className="italic text-[#B84A2B]">Modern Living.</span><br />
           </motion.h1>
           <motion.p variants={fadeUp} className="mt-6 text-lg md:text-xl text-foreground/70 max-w-xl leading-relaxed">
-            Crafting authentic South Indian batters from carefully selected grains using traditional
-            fermentation techniques. <span className="font-semibold text-[#2C5F3F]">No preservatives. Ever.</span>
+            Naturally fermented South Indian batter made with heirloom rice, lentils and ancient millets.
+            Traditional fermentation creates authentic flavor and supports easier digestion.
+            <span className="font-semibold text-[#2C5F3F]"> No preservatives. Ever.</span>
           </motion.p>
+          <motion.div variants={fadeUp} className="mt-4 flex flex-col gap-2 max-w-md">
+            {[
+              '✅ Naturally fermented for authentic flavor and easy digestion.',
+              '✅ A traditional fermented food enjoyed for generations.',
+              '✅ Made with wholesome rice, lentils and ancient grains.',
+            ].map((line, i) => (
+              <p key={i} className="text-sm text-foreground/70">{line}</p>
+            ))}
+          </motion.div>
           <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center gap-4">
             <a href="#products">
               <Button size="lg" className="rounded-full bg-[#B84A2B] hover:bg-[#8E3520] text-white px-8 py-6 text-base premium-shadow">
@@ -156,9 +165,9 @@ const Hero = () => {
           </motion.div>
           <motion.div variants={fadeUp} className="mt-10 flex flex-wrap items-center gap-6 text-sm">
             {[
-              { icon: BadgeCheck, label: 'USDA Organic' },
-              { icon: Leaf, label: '100% Natural' },
-              { icon: Heart, label: 'Family Owned' },
+              { icon: BadgeCheck, label: 'Naturally Fermented' },
+              { icon: Wheat, label: 'Ancient Grains' },
+              { icon: Heart, label: 'Minority & Women-Owned' },
             ].map((b) => (
               <div key={b.label} className="flex items-center gap-2 text-foreground/70">
                 <b.icon className="h-4 w-4 text-[#2C5F3F]" /> <span className="font-medium">{b.label}</span>
@@ -237,14 +246,14 @@ const About = () => (
 /* ------------------------------ WHY CHOOSE US ----------------------------- */
 const WhyChooseUs = () => {
   const items = [
-    { icon: Sprout, title: 'Naturally Fermented', desc: 'Traditional 12-hour fermentation process' },
-    { icon: Clock, title: 'Fresh Everyday', desc: 'Made daily, delivered to your doorstep' },
-    { icon: ShieldCheck, title: 'No Preservatives', desc: 'Zero artificial additives or chemicals' },
-    { icon: Wheat, title: 'Premium Ingredients', desc: 'Heirloom grains & finest urad dal' },
-    { icon: ChefHat, title: 'Traditional Recipe', desc: 'Time-honoured family methods' },
-    { icon: Droplets, title: 'Hygienically Prepared', desc: 'World-class FDA & HACCP certified facility' },
-    { icon: Heart, title: 'Rich in Protein', desc: 'Gut-friendly & nutrient-dense' },
-    { icon: Star, title: 'Authentic Taste', desc: 'The flavour of grandmother’s kitchen' },
+    { icon: Sprout, title: 'Naturally Fermented', desc: 'Traditional fermentation process crafted for flavor and digestibility.' },
+    { icon: FlaskConical, title: 'Gut-Friendly Tradition', desc: 'Fermented goodness that supports easier digestion, the natural way.' },
+    { icon: Heart, title: 'High Protein', desc: 'Rice & lentils deliver naturally occurring plant protein in every serving.' },
+    { icon: ShieldCheck, title: 'Gluten-Free', desc: 'Made without wheat, barley or rye — safe and clean for all.' },
+    { icon: Leaf, title: 'No Preservatives', desc: 'Zero artificial additives or chemicals. Ever.' },
+    { icon: Wheat, title: 'Ancient Grains', desc: 'Heirloom rice, millets and lentils — heritage grains reimagined.' },
+    { icon: Clock, title: 'Ready in Minutes', desc: 'Fresh, fermented goodness — open, pour, cook.' },
+    { icon: Star, title: 'Clean Ingredients', desc: 'Simple, honest ingredients you can read and trust.' },
   ];
   return (
     <section className="py-24 md:py-32 grain-bg">
@@ -254,7 +263,7 @@ const WhyChooseUs = () => {
           <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1A1410] mb-4">
             The Mangalam <span className="italic text-[#2C5F3F]">Difference</span>
           </h2>
-          <p className="text-foreground/70 text-lg">Eight reasons families choose us for their daily breakfast.</p>
+          <p className="text-foreground/70 text-lg">Fresh · Naturally Fermented · Clean Ingredients · Convenient.</p>
         </motion.div>
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-50px' }}
           className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -277,12 +286,12 @@ const WhyChooseUs = () => {
 /* -------------------------------- PRODUCTS -------------------------------- */
 const Products = () => {
   const products = [
-    { name: 'Idly Batter', desc: 'Soft, fluffy idlis from premium urad dal & parboiled rice. Naturally fermented for 12 hours.', img: IMG.idli, badge: 'Bestseller' },
-    { name: 'Dosa Batter', desc: 'Crispy, golden dosas every time. Perfectly balanced batter ready to pour.', img: IMG.heroDosa, badge: 'Fresh' },
-    { name: 'Multi Millet Batter', desc: 'Power-packed with foxtail, pearl & little millets. Gut-friendly nutrition.', img: IMG.ragi, badge: 'Healthy' },
-    { name: 'Ragi Dosa Batter', desc: 'Finger millet goodness. High in calcium, iron and dietary fibre.', img: IMG.lentils2, badge: 'Gluten-Free' },
-    { name: 'Instant Batter', desc: 'No fermentation wait. Open, pour, cook — fresh dosas in minutes.', img: IMG.dosa2, badge: 'Quick' },
-    { name: 'Family Pack', desc: 'Larger pack for the whole family. Same freshness, better value.', img: IMG.idli3, badge: 'Value' },
+    { name: 'Idly Batter', desc: 'Naturally fermented South Indian batter made with heirloom rice & urad dal. Authentic flavor, supports easier digestion.', img: IMG.idli, badge: 'Bestseller' },
+    { name: 'Dosa Batter', desc: 'Traditional fermentation creates the perfect crispy dosa every time. Gut-friendly fermentation process, ready in minutes.', img: IMG.heroDosa, badge: 'Fresh' },
+    { name: 'Multi Millet Batter', desc: 'Ancient grains reimagined — foxtail, pearl & little millets naturally fermented. Plant-powered, protein-rich, beyond rice.', img: IMG.ragi, badge: 'Ancient Grains' },
+    { name: 'Ragi Dosa Batter', desc: 'Made with fiber-rich ragi and nutrient-dense millets. Gluten-free, naturally fermented for flavor and digestibility.', img: IMG.lentils2, badge: 'Gluten-Free' },
+    { name: 'Instant Batter', desc: 'Fermented goodness, ready in minutes. Clean ingredients, no preservatives — fresh dosas in minutes.', img: IMG.dosa2, badge: 'Quick' },
+    { name: 'Family Pack', desc: 'Naturally fermented, made with wholesome rice and lentils. Same clean ingredients, better value for the whole family.', img: IMG.idli3, badge: 'Value' },
   ];
   return (
     <section id="products" className="py-24 md:py-32 bg-white">
