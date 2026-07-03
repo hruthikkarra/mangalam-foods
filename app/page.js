@@ -9,7 +9,7 @@ import {
   Eye, Radio,
 } from 'lucide-react';
 
-const LOGO_URL = 'https://customer-assets.emergentagent.com/job_authentic-grains/artifacts/pnf8ivar_mangalam_logo-removebg-preview.png';
+import EventModal from '@/components/EventModal';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -50,7 +50,7 @@ const LogoMark = ({ className = 'h-16 w-16' }) => (
 );
 
 /* --------------------------------- NAVBAR --------------------------------- */
-const Navbar = () => {
+const Navbar = ({ onOpenModal }) => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -92,6 +92,9 @@ const Navbar = () => {
               Order Now <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
           </a>
+          <Button onClick={onOpenModal} variant="outline" className="ml-2 rounded-full border-2 border-[#2C5F3F] text-[#2C5F3F] hover:bg-[#2C5F3F] hover:text-white px-6 shadow-sm hidden xl:flex">
+            Register for Event
+          </Button>
         </div>
         <button onClick={() => setOpen(!open)} className="lg:hidden p-2 rounded-full bg-white/80 border border-[#B84A2B]/20">
           {open ? <X className="h-5 w-5 text-[#B84A2B]" /> : <Menu className="h-5 w-5 text-[#B84A2B]" />}
@@ -839,7 +842,14 @@ const TransparenSee = () => {
 };
 
 /* ------------------------------- PROCESS --------------------------------- */
+import { useRef } from 'react';
 const Process = () => {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start center", "end center"]
+  });
+
   const steps = [
     { icon: Wheat, title: 'Premium Grain Selection', desc: 'Heirloom rice, urad dal, millets & methi from trusted farms.' },
     { icon: Droplets, title: 'Cleaning & Washing', desc: 'Multi-stage cleansing using purified water.' },
@@ -860,24 +870,42 @@ const Process = () => {
           <p className="text-foreground/70 text-lg">Seven careful steps. One promise of freshness.</p>
         </motion.div>
 
-        <div className="relative max-w-4xl mx-auto">
-          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#B84A2B]/30 via-[#C9A961]/40 to-[#2C5F3F]/30 md:-translate-x-1/2" />
+        <div className="relative max-w-4xl mx-auto" ref={containerRef}>
+          {/* Background Line */}
+          <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-[#B84A2B]/10 md:-translate-x-1/2 rounded-full" />
+          
+          {/* Animated Scroll Line */}
+          <motion.div 
+            className="absolute left-8 md:left-1/2 top-0 w-1 bg-gradient-to-b from-[#B84A2B] via-[#C9A961] to-[#2C5F3F] md:-translate-x-1/2 origin-top rounded-full z-0"
+            style={{ scaleY: scrollYProgress, bottom: 0 }}
+          />
+
           {steps.map((s, i) => (
             <motion.div key={s.title}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }} whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: '-50px' }} transition={{ duration: 0.6, delay: i * 0.05 }}
-              className={`relative mb-10 flex items-center ${i % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}`}>
-              <div className="absolute left-8 md:left-1/2 -translate-x-1/2 z-10">
-                <div className="h-16 w-16 rounded-full bg-white grid place-items-center premium-shadow ring-4 ring-[#FBF7F0]">
-                  <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#B84A2B] to-[#8E3520] grid place-items-center text-white">
+              initial={{ opacity: 0, y: 30 }} 
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-20%' }} 
+              transition={{ duration: 0.5, type: 'spring' }}
+              className={`relative mb-12 flex items-center group ${i % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}`}>
+              
+              <div className="absolute left-8 md:left-1/2 -translate-x-1/2 z-10 transition-transform duration-500 group-hover:scale-110">
+                <div className="h-16 w-16 rounded-full bg-white grid place-items-center premium-shadow-lg ring-4 ring-white border-2 border-[#C9A961]/20">
+                  <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#B84A2B] to-[#8E3520] grid place-items-center text-white shadow-inner">
                     <s.icon className="h-6 w-6" strokeWidth={1.8} />
                   </div>
                 </div>
               </div>
-              <div className={`pl-28 md:pl-0 md:w-[42%] ${i % 2 === 0 ? 'md:pr-12 md:text-right' : 'md:pl-12'}`}>
-                <div className={`inline-block text-xs font-bold tracking-widest text-[#C9A961] mb-2`}>STEP {String(i + 1).padStart(2, '0')}</div>
-                <h3 className="font-display text-2xl font-bold text-[#1A1410] mb-2">{s.title}</h3>
-                <p className="text-foreground/70 leading-relaxed">{s.desc}</p>
+
+              <div className={`pl-28 md:pl-0 md:w-[42%] ${i % 2 === 0 ? 'md:pr-14 md:text-right' : 'md:pl-14'}`}>
+                <motion.div 
+                  initial={{ opacity: 0, x: i % 2 === 0 ? 20 : -20 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2, duration: 0.5 }}
+                >
+                  <div className={`inline-block text-xs font-bold tracking-widest text-[#C9A961] mb-2`}>STEP {String(i + 1).padStart(2, '0')}</div>
+                  <h3 className="font-display text-2xl font-bold text-[#1A1410] mb-3 group-hover:text-[#B84A2B] transition-colors">{s.title}</h3>
+                  <p className="text-foreground/70 leading-relaxed bg-white/50 backdrop-blur-sm p-4 rounded-2xl border border-white/40 shadow-sm">{s.desc}</p>
+                </motion.div>
               </div>
             </motion.div>
           ))}
@@ -1301,9 +1329,22 @@ const Footer = () => (
 
 /* --------------------------------- APP ------------------------------------ */
 function App() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    const hasSeenModal = localStorage.getItem('mangalam_event_modal_seen');
+    if (!hasSeenModal) {
+      const timer = setTimeout(() => {
+        setIsModalOpen(true);
+        localStorage.setItem('mangalam_event_modal_seen', 'true');
+      }, 6000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   return (
     <main className="bg-[#FBF7F0] min-h-screen overflow-x-hidden">
-      <Navbar />
+      <Navbar onOpenModal={() => setIsModalOpen(true)} />
       <Hero />
       <About />
       <Mission />
@@ -1315,11 +1356,13 @@ function App() {
       <Quality />
       <OurPromise />
       <Capabilities />
-      <JoinJourney />
+      <JoinJourney onOpenModal={() => setIsModalOpen(true)} />
       <Testimonials />
       <FAQ />
       <Contact />
       <Footer />
+      
+      <EventModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </main>
   );
 }

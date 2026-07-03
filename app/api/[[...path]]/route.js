@@ -89,6 +89,36 @@ export async function POST(request, { params }) {
       );
       return json({ success: true, message: 'Subscribed successfully' });
     }
+    if (route === 'event-register') {
+      const { name, email, phone, company, city, visitors, visitDate, product, interests, comments } = body;
+      if (!name || !email || !phone) {
+        return json({ error: 'Name, email and phone are required' }, 400);
+      }
+      const db = await getDb();
+      
+      // Check for duplicate email
+      const existing = await db.collection('event_registrations').findOne({ email: String(email).toLowerCase() });
+      if (existing) {
+        return json({ error: 'This email is already registered for the event.' }, 400);
+      }
+      
+      const doc = {
+        id: uuidv4(),
+        name: String(name).trim(),
+        email: String(email).trim().toLowerCase(),
+        phone: String(phone).trim(),
+        company: company ? String(company).trim() : '',
+        city: city ? String(city).trim() : '',
+        visitors: visitors ? String(visitors).trim() : '',
+        visitDate: visitDate ? String(visitDate).trim() : '',
+        product: product ? String(product).trim() : '',
+        interests: Array.isArray(interests) ? interests : [],
+        comments: comments ? String(comments).trim() : '',
+        createdAt: new Date().toISOString(),
+      };
+      await db.collection('event_registrations').insertOne(doc);
+      return json({ success: true, id: doc.id, message: 'Thank you for registering! We look forward to welcoming you at the Mangalam Foods stall.' });
+    }
     return json({ error: 'Not found', route }, 404);
   } catch (e) {
     return json({ error: e.message }, 500);
