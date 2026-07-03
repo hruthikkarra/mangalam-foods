@@ -72,12 +72,12 @@ const Navbar = () => {
       initial={{ y: -80 }} animate={{ y: 0 }} transition={{ duration: 0.6 }}
       className={`sticky top-0 inset-x-0 z-50 bg-white border-b border-[#B84A2B]/10 py-2 shadow-sm transition-all duration-500`}
     >
-      <div className="container flex h-24 items-center justify-between">
+      <div className="container flex h-28 items-center justify-between">
         <a href="#" className="flex items-center gap-3 group relative z-10">
-          <LogoMark className="h-20 w-20 md:h-24 md:w-24" />
+          <LogoMark className="h-28 w-28 md:h-32 md:w-32" />
           <div className="leading-tight">
-            <div className="font-display text-xl md:text-2xl font-bold text-[#8E3520] tracking-wide">Mangalam Foods</div>
-            <div className="text-[10px] md:text-[11px] tracking-[0.22em] text-[#2C5F3F] font-medium uppercase">A Blessing at Every Table</div>
+            <div className="font-display text-2xl md:text-3xl font-bold text-[#8E3520] tracking-wide">Mangalam Foods</div>
+            <div className="text-[11px] md:text-[12px] tracking-[0.22em] text-[#2C5F3F] font-medium uppercase">A Blessing at Every Table</div>
           </div>
         </a>
         <div className="hidden lg:flex items-center gap-1">
@@ -182,9 +182,9 @@ const Hero = () => {
 
         <motion.div initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.9, delay: 0.2 }}
           className="relative">
-          <div className="relative w-full max-w-lg mx-auto">
+          <div className="relative w-full max-w-xl lg:max-w-2xl mx-auto xl:scale-110 xl:origin-right mt-12 lg:mt-0">
             <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-              className="relative rounded-3xl overflow-hidden premium-shadow-lg ring-1 ring-white">
+              className="relative rounded-[2.5rem] overflow-hidden premium-shadow-2xl ring-4 ring-white/50">
               <img src={IMG.ancientGrains} alt="Ancient Grains, Modern Nutrition" className="w-full h-auto object-cover" />
             </motion.div>
           </div>
@@ -246,13 +246,15 @@ const WhyChooseUs = () => {
   return (
     <section className="py-24 md:py-32 grain-bg">
       <div className="container">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-2xl mx-auto mb-16">
+        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-4xl mx-auto mb-16">
           <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#B84A2B] mb-4">Why Choose Us</span>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1A1410] mb-4">
             The Mangalam <span className="italic text-[#2C5F3F]">Difference</span>
           </h2>
-          <p className="text-foreground/70 text-lg mb-8">Fresh · Naturally Fermented · Clean Ingredients · Convenient.</p>
-          <img src={IMG.naturallyFermented} alt="Fresh, naturally fermented, gut-friendly" className="w-full h-auto rounded-3xl premium-shadow-lg border border-[#B84A2B]/10" />
+          <p className="text-foreground/70 text-lg mb-10 max-w-2xl mx-auto">Fresh · Naturally Fermented · Clean Ingredients · Convenient.</p>
+          <div className="relative rounded-[2.5rem] overflow-hidden premium-shadow-2xl ring-1 ring-black/5">
+            <img src={IMG.naturallyFermented} alt="Fresh, naturally fermented, gut-friendly" className="w-full h-auto object-cover transform hover:scale-105 transition-transform duration-700" />
+          </div>
         </motion.div>
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-50px' }}
           className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -1168,9 +1170,9 @@ const Contact = () => {
 
         <div className="grid lg:grid-cols-5 gap-8 max-w-6xl mx-auto">
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-            className="lg:col-span-2 space-y-6">
-            <div className="rounded-3xl overflow-hidden border border-[#B84A2B]/10 premium-shadow-lg">
-              <img src={IMG.bringTradition} alt="Bring Tradition to Your Table" className="w-full h-auto object-cover" />
+            className="lg:col-span-2 space-y-8 lg:scale-110 lg:origin-top-left xl:scale-125 z-10">
+            <div className="rounded-[2.5rem] overflow-hidden border border-[#B84A2B]/10 premium-shadow-2xl">
+              <img src={IMG.bringTradition} alt="Bring Tradition to Your Table" className="w-full h-auto object-cover transform hover:scale-[1.03] transition-transform duration-700" />
             </div>
             
             <div className="space-y-4">
@@ -1253,10 +1255,10 @@ const Footer = () => (
       <div className="grid md:grid-cols-4 gap-10 mb-12">
         <div className="md:col-span-1">
           <div className="flex flex-col items-center md:items-start max-w-sm">
-            <LogoMark className="h-20 w-20" />
+            <LogoMark className="h-32 w-32" />
             <div className="mt-4">
-              <div className="font-display text-xl font-bold text-white">Mangalam Foods</div>
-              <div className="text-[10px] tracking-[0.2em] uppercase text-[#C9A961]">A Blessing at Every Table</div>
+              <div className="font-display text-2xl font-bold text-white">Mangalam Foods</div>
+              <div className="text-[11px] tracking-[0.2em] uppercase text-[#C9A961]">A Blessing at Every Table</div>
             </div>
           </div>
           <p className="mt-6 text-sm text-white/60 leading-relaxed text-center md:text-left">
