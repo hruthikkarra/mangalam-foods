@@ -131,25 +131,6 @@ export default function EventModal({ isOpen, onClose }) {
                   Register to visit our stall, explore our products, request samples, and connect with our team.
                 </p>
 
-                <div className="space-y-5 bg-black/20 p-6 rounded-2xl border border-white/10 backdrop-blur-md">
-                  <div className="flex items-start gap-4">
-                    <Calendar className="h-5 w-5 text-[#F57C00] mt-0.5 shrink-0" />
-                    <div>
-                      <div className="text-xs uppercase tracking-wider text-white/60 mb-1">Date & Time</div>
-                      <div className="font-semibold">October 15 - 17, 2026</div>
-                      <div className="text-sm text-white/80">9:00 AM - 6:00 PM</div>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <MapPin className="h-5 w-5 text-[#F57C00] mt-0.5 shrink-0" />
-                    <div>
-                      <div className="text-xs uppercase tracking-wider text-white/60 mb-1">Venue</div>
-                      <div className="font-semibold">Boston Convention Center</div>
-                      <div className="text-sm text-white/80">Booth #420, Hall B</div>
-                    </div>
-                  </div>
-                </div>
-
                 <div className="mt-8 hidden md:block">
                   <img src="https://images.unsplash.com/photo-1555243896-c709bfa0b564?crop=entropy&cs=srgb&fm=jpg&w=600&q=80" alt="Food Expo" className="rounded-2xl border border-white/10 opacity-80" />
                 </div>
@@ -211,12 +192,12 @@ export default function EventModal({ isOpen, onClose }) {
                         </div>
                         <div>
                           <label className="text-xs uppercase tracking-wider text-gray-500 font-semibold mb-2 block">Preferred Visit Date</label>
-                          <select value={form.visitDate} onChange={e => setForm({...form, visitDate: e.target.value})} className="w-full h-12 rounded-xl border border-gray-200 px-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]">
-                            <option value="">Select a Date</option>
-                            <option value="Oct 15">Oct 15, 2026</option>
-                            <option value="Oct 16">Oct 16, 2026</option>
-                            <option value="Oct 17">Oct 17, 2026</option>
-                          </select>
+                          <input 
+                            type="date"
+                            value={form.visitDate} 
+                            onChange={e => setForm({...form, visitDate: e.target.value})} 
+                            className="w-full h-12 rounded-xl border border-gray-200 px-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#2E7D32]"
+                          />
                         </div>
                       </div>
 
