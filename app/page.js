@@ -72,12 +72,12 @@ const Navbar = ({ onOpenModal }) => {
       initial={{ y: -80 }} animate={{ y: 0 }} transition={{ duration: 0.6 }}
       className={`sticky top-0 inset-x-0 z-50 bg-white border-b border-[#B84A2B]/10 py-2 shadow-sm transition-all duration-500`}
     >
-      <div className="container flex h-24 items-center justify-between">
+      <div className="container flex h-32 items-center justify-between">
         <a href="#" className="flex items-center gap-3 group relative z-10">
-          <LogoMark className="h-20 w-20 md:h-24 md:w-24" />
+          <LogoMark className="h-24 w-24 md:h-32 md:w-32" />
           <div className="leading-tight">
-            <div className="font-display text-xl md:text-2xl font-bold text-[#8E3520] tracking-wide">Mangalam Foods</div>
-            <div className="text-[10px] md:text-[11px] tracking-[0.22em] text-[#2C5F3F] font-medium uppercase">A Blessing at Every Table</div>
+            <div className="font-display text-2xl md:text-3xl font-bold text-[#8E3520] tracking-wide">Mangalam Foods</div>
+            <div className="text-[11px] md:text-[12px] tracking-[0.22em] text-[#2C5F3F] font-medium uppercase">A Blessing at Every Table</div>
           </div>
         </a>
         <div className="hidden lg:flex items-center gap-1">
@@ -1281,7 +1281,7 @@ const Footer = () => (
       <div className="grid md:grid-cols-4 gap-10 mb-12">
         <div className="md:col-span-1">
           <div className="flex flex-col items-center md:items-start max-w-sm">
-            <LogoMark className="h-20 w-20" />
+            <LogoMark className="h-32 w-32" />
             <div className="mt-4">
               <div className="font-display text-xl font-bold text-white">Mangalam Foods</div>
               <div className="text-[10px] tracking-[0.2em] uppercase text-[#C9A961]">A Blessing at Every Table</div>
