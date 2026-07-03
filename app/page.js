@@ -220,9 +220,9 @@ const About = () => (
 
       <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8 }}>
         <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#B84A2B] mb-4">Our Story</span>
-        <h2 className="font-display text-3xl md:text-4xl font-bold text-[#1A1410] leading-tight mb-6">
+        <p className="text-lg text-foreground/70 leading-relaxed mb-6 font-normal">
           Mangalam — a word that means auspiciousness, blessing, and good fortune — is the name Monali Kotak has chosen for the next chapter of her food journey.
-        </h2>
+        </p>
         <p className="text-lg text-foreground/70 leading-relaxed mb-6">
           Built on the foundation she has laid at Zayith Bazaar, a women-owned and minority-owned restaurant in Boston, Mangalam Foods carries forward a simple belief: <strong className="text-[#8E3520]">food made with intention has the power to nourish people, honor culture, and give back to the community.</strong>
         </p>
@@ -688,9 +688,8 @@ const TransparenSee = () => {
             <Eye className="h-4 w-4 text-[#C9A961]" />
             <span className="text-xs tracking-[0.3em] uppercase font-bold text-[#C9A961]">TransparenSee</span>
           </div>
-          <h2 className="font-display text-4xl md:text-6xl font-bold mb-6 leading-[1.05] text-balance">
-            America&rsquo;s Biggest Batter Kitchen <br className="hidden md:block" />
-            <span className="italic text-[#C9A961]">& Also Its Most Transparent One.</span>
+          <h2 className="text-4xl md:text-5xl mb-6 leading-[1.05] text-balance">
+            A Peek Inside Our <span className="italic text-[#C9A961]">Kitchen</span>
           </h2>
           <p className="text-white/75 text-lg leading-relaxed mb-5">
             Your kitchen is a space of <strong className="text-[#C9A961]">Love, Purity and Trust</strong>. Our factory is the same.
