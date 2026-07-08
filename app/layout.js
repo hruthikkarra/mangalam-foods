@@ -4,14 +4,14 @@ import { Toaster } from 'sonner';
 export const metadata = {
   title: 'Mangalam Foods — Freshness You Can Taste. Tradition You Can Trust.',
   description:
-    'Authentic South Indian batters — Idly, Dosa, Multi-Millet & Ragi — naturally fermented, preservative-free, delivered fresh. A Blessing at Every Table.',
+    'Authentic Fresh batters — IDLI, Dosa & Multi-Millet — naturally fermented, preservative-free, delivered fresh. A Blessing at Every Table.',
   keywords: [
-    'Mangalam Foods', 'Idly Batter', 'Dosa Batter', 'Millet Batter',
-    'South Indian Food', 'Fresh Batter', 'Naturally Fermented', 'Sudbury MA',
+    'Mangalam Foods', 'IDLI Batter', 'Dosa Batter', 'Millet Batter',
+    'Fresh Ready-to-Cook Foods', 'Fresh Batter', 'Naturally Fermented', 'Sudbury MA',
   ],
   openGraph: {
     title: 'Mangalam Foods — A Blessing at Every Table',
-    description: 'Authentic South Indian batters — naturally fermented & preservative-free.',
+    description: 'Authentic Fresh batters — naturally fermented & preservative-free.',
     type: 'website',
   },
 };
@@ -29,7 +29,7 @@ export default function RootLayout({ children }) {
               '@type': 'FoodEstablishment',
               name: 'Mangalam Foods',
               description:
-                'Authentic naturally fermented South Indian batters — Idly, Dosa, Millet & more.',
+                'Authentic naturally fermented fresh batters — IDLI, Dosa, Millet & more.',
               url: 'https://mangalamfoods.us',
               telephone: '+1-774-287-5154',
               email: 'Admin@mangalamfoods.us',

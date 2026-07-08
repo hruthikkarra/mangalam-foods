@@ -145,7 +145,7 @@ const Hero = () => {
             Ancient Grains. <span className="italic text-[#B84A2B]">Modern Living.</span><br />
           </motion.h1>
           <motion.p variants={fadeUp} className="mt-6 text-lg md:text-xl text-foreground/70 max-w-xl leading-relaxed">
-            Naturally fermented South Indian batter made with heirloom rice, lentils and ancient millets.
+            Naturally fermented fresh ready-to-cook batter made with heirloom rice, lentils and ancient millets.
             Traditional fermentation creates authentic flavor and supports easier digestion.
             <span className="font-semibold text-[#2C5F3F]"> No preservatives. Ever.</span>
           </motion.p>
@@ -278,11 +278,9 @@ const WhyChooseUs = () => {
 /* -------------------------------- PRODUCTS -------------------------------- */
 const Products = () => {
   const products = [
-    { name: 'Idly Batter', desc: 'Naturally fermented South Indian batter made with heirloom rice & urad dal. Authentic flavor, supports easier digestion.', img: IMG.idlyDosa, badge: 'Bestseller' },
+    { name: 'IDLI Batter', desc: 'Naturally fermented fresh batter made with heirloom rice & urad dal. Authentic flavor, supports easier digestion.', img: IMG.idlyDosa, badge: 'Bestseller' },
     { name: 'Dosa Batter', desc: 'Traditional fermentation creates the perfect crispy dosa every time. Gut-friendly fermentation process, ready in minutes.', img: IMG.idlyDosa, badge: 'Fresh' },
-    { name: 'Multi Millet Batter', desc: 'Ancient grains reimagined — foxtail, pearl & little millets naturally fermented. Plant-powered, protein-rich, beyond rice.', img: IMG.ragi, badge: 'Ancient Grains' },
-    { name: 'Ragi Dosa Batter', desc: 'Made with fiber-rich ragi and nutrient-dense millets. Gluten-free, naturally fermented for flavor and digestibility.', img: IMG.lentils2, badge: 'Gluten-Free' },
-    { name: 'Instant Batter', desc: 'Fermented goodness, ready in minutes. Clean ingredients, no preservatives — fresh dosas in minutes.', img: IMG.dosa2, badge: 'Quick' },
+    { name: 'Multi Millet Batter', desc: 'Ancient grains reimagined — foxtail, pearl, little millets, and ragi naturally fermented. Plant-powered, protein-rich, beyond rice.', img: IMG.ragi, badge: 'Ancient Grains' },
     { name: 'Family Pack', desc: 'Naturally fermented, made with wholesome rice and lentils. Same clean ingredients, better value for the whole family.', img: IMG.idli3, badge: 'Value' },
   ];
   return (
@@ -1080,7 +1078,7 @@ const Testimonials = () => {
   const reviews = [
     { name: 'Priya Sharma', role: 'Mother of 2', text: 'My kids love the idlis I make from Mangalam batter. The freshness is unbelievable — just like my grandmother used to make!', rating: 5 },
     { name: 'Rajesh Iyer', role: 'Software Engineer', text: 'I tried every brand. Mangalam is the only one that tastes truly authentic. The dosa crisps up perfectly every single time.', rating: 5 },
-    { name: 'Lakshmi Menon', role: 'Home Chef', text: 'No preservatives, naturally fermented, and unbelievably consistent. This is the real South Indian batter we have been waiting for.', rating: 5 },
+    { name: 'Lakshmi Menon', role: 'Home Chef', text: 'No preservatives, naturally fermented, and unbelievably consistent. This is the real fresh batter we have been waiting for.', rating: 5 },
   ];
   return (
     <section className="py-24 md:py-32 bg-[#1A1410] text-white relative overflow-hidden">
@@ -1247,11 +1245,9 @@ const Contact = () => {
                 <select value={form.product} onChange={(e) => setForm({ ...form, product: e.target.value })}
                   className="w-full h-12 rounded-xl border border-[#B84A2B]/20 px-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#B84A2B]">
                   <option value="">Select a product</option>
-                  <option>Idly Batter</option>
+                  <option>IDLI Batter</option>
                   <option>Dosa Batter</option>
                   <option>Multi Millet Batter</option>
-                  <option>Ragi Dosa Batter</option>
-                  <option>Instant Batter</option>
                   <option>Family Pack</option>
                   <option>Bulk / Institutional Order</option>
                 </select>
@@ -1288,7 +1284,7 @@ const Footer = () => (
             </div>
           </div>
           <p className="mt-6 text-sm text-white/60 leading-relaxed text-center md:text-left">
-            Authentic South Indian batters — naturally fermented, preservative-free, delivered fresh.
+            Authentic fresh ready-to-cook batters — naturally fermented, preservative-free, delivered fresh.
           </p>
         </div>
         <div>
@@ -1302,7 +1298,7 @@ const Footer = () => (
         <div>
           <div className="font-display text-lg font-semibold text-white mb-4">Products</div>
           <ul className="space-y-2 text-sm">
-            {['Idly Batter', 'Dosa Batter', 'Multi Millet Batter', 'Ragi Dosa Batter', 'Instant Batter', 'Family Pack'].map((l) => (
+            {['IDLI Batter', 'Dosa Batter', 'Multi Millet Batter', 'Family Pack'].map((l) => (
               <li key={l}><a href="#products" className="hover:text-[#C9A961] transition-colors">{l}</a></li>
             ))}
           </ul>

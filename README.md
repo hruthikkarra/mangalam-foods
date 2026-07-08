@@ -1,6 +1,6 @@
 # Mangalam Foods 🌾
 
-> **A Blessing at Every Table** — A premium, responsive marketing website for **Mangalam Foods**, a US-based South Indian batter brand (Idly, Dosa, Multi-Millet, Ragi & more).
+> **A Blessing at Every Table** — A premium, responsive marketing website for **Mangalam Foods**, a US-based fresh ready-to-cook batter brand (IDLI, Dosa, Multi-Millet & more).
 
 Built in the spirit of Apple × iD Fresh Foods: clean white backgrounds, premium card layouts, large food photography, traditional fermentation storytelling, and a fully transparent "live kitchen" view of the factory.
 
@@ -13,7 +13,7 @@ Built in the spirit of Apple × iD Fresh Foods: clean white backgrounds, premium
 - 📜 **A Peek Into Our Kitchen** — Immersive 7-stage process page (The Not-So-Secret Ingredients → Soaking In It → The Daily Grind → The Perfect Mix → Rise and Shine → Signed, Sealed & Soon to be Delivered → Now Ready to be Served with Love & Chutney), each on its own gradient-tinted section with up/down arrow navigation
 - 🚛 **US-themed delivery story** with a real US-truck final stage
 - 🛡️ **American certifications** — USDA Organic, FDA Registered, HACCP Certified, Non-GMO Verified, SQF Level 2
-- 🛒 **Product catalogue** — 6 SKUs (Idly, Dosa, Multi-Millet, Ragi, Instant, Family Pack) with hover lift cards & "Fresh" badges
+- 🛒 **Product catalogue** — 4 SKUs (IDLI, Dosa, Multi-Millet, Family Pack) with hover lift cards & "Fresh" badges
 - 💬 **Working contact form** backed by MongoDB (inquiries persisted via API)
 - 🗺️ **Embedded Google Map** with Sudbury, MA HQ
 - ⭐ Sections: Hero · About · Why Choose Us (8 reasons) · Products · Peek Into Our Kitchen · TransparenSee · Quality & Certs · Benefits · Testimonials · FAQ · Contact · Footer
@@ -108,7 +108,7 @@ curl -X POST http://localhost:3000/api/inquiries \
     "name": "Priya Sharma",
     "email": "priya@example.com",
     "phone": "+1-555-0100",
-    "product": "Idly Batter",
+    "product": "IDLI Batter",
     "message": "Loved the website! Where can I buy?"
   }'
 ```
