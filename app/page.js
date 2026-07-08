@@ -93,7 +93,7 @@ const Navbar = ({ onOpenModal }) => {
             </Button>
           </a>
           <Button onClick={onOpenModal} variant="outline" className="ml-2 rounded-full border-2 border-[#2C5F3F] text-[#2C5F3F] hover:bg-[#2C5F3F] hover:text-white px-6 shadow-sm hidden xl:flex">
-            Register for Event
+            Pop-up Page
           </Button>
         </div>
         <button onClick={() => setOpen(!open)} className="lg:hidden p-2 rounded-full bg-white/80 border border-[#B84A2B]/20">
