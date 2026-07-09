@@ -1,15 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform } from 'framer-motion';
 import {
   Leaf, Sprout, Wheat, ShieldCheck, Heart, Clock, FlaskConical, Truck,
   Award, BadgeCheck, Star, MapPin, Phone, Mail, Menu, X, ChevronDown,
   Send, Sparkles, Droplets, ChefHat, Package, CheckCircle2, Quote, ArrowRight,
-  Eye, Radio,
+  Eye, Radio, UtensilsCrossed, Soup,
 } from 'lucide-react';
 
-import EventModal from '@/components/EventModal';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -19,22 +18,24 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { toast } from 'sonner';
 
 const IMG = {
-  idlyDosa: '/idly-dosa.png',
   ancientGrains: '/ancient-grains.png',
   naturallyFermented: '/naturally-fermented.png',
   bringTradition: '/bring-tradition.png',
-  heroDosa: 'https://images.unsplash.com/photo-1743517894265-c86ab035adef?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNzl8MHwxfHNlYXJjaHw0fHxkb3NhfGVufDB8fHx8MTc4Mjc1MzY5M3ww&ixlib=rb-4.1.0&q=85',
-  dosa2: 'https://images.unsplash.com/photo-1708146464361-5c5ce4f9abb6?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNzl8MHwxfHNlYXJjaHwzfHxkb3NhfGVufDB8fHx8MTc4Mjc1MzY5M3ww&ixlib=rb-4.1.0&q=85',
-  dosaPour: 'https://images.pexels.com/photos/12392915/pexels-photo-12392915.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-  idli: 'https://images.unsplash.com/photo-1730191843435-073792ba22bc?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwzfHxpZGxpfGVufDB8fHx8MTc4Mjc1MzY5NHww&ixlib=rb-4.1.0&q=85',
-  idli2: 'https://images.unsplash.com/photo-1632104667384-06f58cb7ad44?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwyfHxpZGxpfGVufDB8fHx8MTc4Mjc1MzY5NHww&ixlib=rb-4.1.0&q=85',
-  idli3: 'https://images.pexels.com/photos/35514447/pexels-photo-35514447.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
-  spread: 'https://images.pexels.com/photos/5410418/pexels-photo-5410418.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+  heroBatter: 'https://images.unsplash.com/photo-1612257416648-ee7a6c533b4f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHwxfHxsZW50aWxzfGVufDB8fHx8MTc4Mjc1MzcwMXww&ixlib=rb-4.1.0&q=85',
   lentils: 'https://images.unsplash.com/photo-1612257416648-ee7a6c533b4f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHw0fHxsZW50aWxzfGVufDB8fHx8MTc4Mjc1MzcwMXww&ixlib=rb-4.1.0&q=85',
   lentils2: 'https://images.unsplash.com/photo-1552585960-0e1069ce7405?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NTYxOTF8MHwxfHNlYXJjaHwxfHxsZW50aWxzfGVufDB8fHx8MTc4Mjc1MzcwMXww&ixlib=rb-4.1.0&q=85',
-  ragi: 'https://images.unsplash.com/photo-1768729339998-909158957162?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwxfHxyYWdpJTIwbWlsbGV0fGVufDB8fHx8MTc4Mjc1MzcwMHww&ixlib=rb-4.1.0&q=85',
+  millets: 'https://images.unsplash.com/photo-1768729339998-909158957162?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Njd8MHwxfHNlYXJjaHwxfHxyYWdpJTIwbWlsbGV0fGVufDB8fHx8MTc4Mjc1MzcwMHww&ixlib=rb-4.1.0&q=85',
   cooking: 'https://images.pexels.com/photos/37330104/pexels-photo-37330104.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+  spices: 'https://images.unsplash.com/photo-1506543730435-e2c1d4553a84?crop=entropy&cs=srgb&fm=jpg&w=900&q=80',
+  chutney: 'https://images.pexels.com/photos/5410418/pexels-photo-5410418.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+  packaging: 'https://images.pexels.com/photos/2889093/pexels-photo-2889093.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
+  batters: '/ancient-grains.png',
+  water: 'https://images.unsplash.com/photo-1574849857528-00c661bae0d6?crop=entropy&cs=srgb&fm=jpg&w=900&q=80',
+  grinding: 'https://images.unsplash.com/photo-1589109807644-924edf14ee09?crop=entropy&cs=srgb&fm=jpg&w=900&q=80',
+  spread: 'https://images.pexels.com/photos/5410418/pexels-photo-5410418.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940',
 };
+
+const US_TRUCK = '/us_food_truck.png';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -50,7 +51,7 @@ const LogoMark = ({ className = 'h-16 w-16' }) => (
 );
 
 /* --------------------------------- NAVBAR --------------------------------- */
-const Navbar = ({ onOpenModal }) => {
+const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   useEffect(() => {
@@ -92,9 +93,11 @@ const Navbar = ({ onOpenModal }) => {
               Order Now <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
           </a>
-          <Button onClick={onOpenModal} variant="outline" className="ml-2 rounded-full border-2 border-[#2C5F3F] text-[#2C5F3F] hover:bg-[#2C5F3F] hover:text-white px-6 shadow-sm hidden xl:flex">
-            Pop-up Page
-          </Button>
+          <a href="/pop-up-events" className="ml-2">
+            <Button variant="outline" className="rounded-full border-2 border-[#2C5F3F] text-[#2C5F3F] hover:bg-[#2C5F3F] hover:text-white px-6 shadow-sm hidden xl:flex">
+              Pop-Up Events
+            </Button>
+          </a>
         </div>
         <button onClick={() => setOpen(!open)} className="lg:hidden p-2 rounded-full bg-white/80 border border-[#B84A2B]/20">
           {open ? <X className="h-5 w-5 text-[#B84A2B]" /> : <Menu className="h-5 w-5 text-[#B84A2B]" />}
@@ -111,6 +114,10 @@ const Navbar = ({ onOpenModal }) => {
                   {l.label}
                 </a>
               ))}
+              <a href="/pop-up-events" onClick={() => setOpen(false)}
+                className="px-4 py-3 rounded-xl text-[#2C5F3F] hover:bg-[#FAF5EB] font-medium border border-[#2C5F3F]/20 mt-1">
+                Pop-Up Events
+              </a>
             </div>
           </motion.div>
         )}
@@ -129,7 +136,6 @@ const Hero = () => {
     <section id="top" className="relative min-h-screen overflow-hidden grain-bg pt-28 md:pt-36 pb-16">
       <motion.div style={{ y: y2 }} className="absolute -top-20 -right-20 w-[480px] h-[480px] rounded-full bg-gradient-to-br from-[#C9A961]/20 to-[#B84A2B]/10 blur-3xl" />
       <motion.div style={{ y: y1 }} className="absolute -bottom-32 -left-20 w-[420px] h-[420px] rounded-full bg-gradient-to-tr from-[#2C5F3F]/15 to-[#C9A961]/15 blur-3xl" />
-      {/* floating grain illustrations */}
       <motion.div animate={{ rotate: 360 }} transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
         className="absolute top-40 left-10 text-[#C9A961]/30 hidden md:block"><Wheat className="h-20 w-20" /></motion.div>
       <motion.div animate={{ rotate: -360 }} transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
@@ -139,24 +145,19 @@ const Hero = () => {
         <motion.div style={{ opacity }} variants={stagger} initial="hidden" animate="visible" className="relative">
           <motion.div variants={fadeUp} className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 backdrop-blur border border-[#B84A2B]/15 mb-6 shadow-sm">
             <Sparkles className="h-4 w-4 text-[#C9A961]" />
-            <span className="text-xs tracking-[0.2em] uppercase font-semibold text-[#8E3520]">Ancient Grains • Naturally Fermented • Modern Living</span>
+            <span className="text-xs tracking-[0.2em] uppercase font-semibold text-[#8E3520]">A Blessing at Every Table</span>
           </motion.div>
           <motion.h1 variants={fadeUp} className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-[1.05] text-[#1A1410] text-balance">
-            Ancient Grains. <span className="italic text-[#B84A2B]">Modern Living.</span><br />
+            Freshness You Can Taste. <span className="italic text-[#B84A2B]">Tradition You Can Trust.</span>
           </motion.h1>
           <motion.p variants={fadeUp} className="mt-6 text-lg md:text-xl text-foreground/70 max-w-xl leading-relaxed">
-            Naturally fermented fresh ready-to-cook batter made with heirloom rice, lentils and ancient millets.
-            Traditional fermentation creates authentic flavor and supports easier digestion.
-            <span className="font-semibold text-[#2C5F3F]"> No preservatives. Ever.</span>
+            Mangalam Foods is a Boston, MA-based food production company creating fresh, clean, naturally fermented batters made from heritage rice, millets, lentils, and methi (fenugreek seeds).
           </motion.p>
-          <motion.div variants={fadeUp} className="mt-4 flex flex-col gap-2 max-w-md">
-            {[
-              '✅ Naturally fermented for authentic flavor and easy digestion.',
-              '✅ A traditional fermented food enjoyed for generations.',
-              '✅ Made with wholesome rice, lentils and ancient grains.',
-            ].map((line, i) => (
-              <p key={i} className="text-sm text-foreground/70">{line}</p>
-            ))}
+          <motion.p variants={fadeUp} className="mt-4 text-lg md:text-xl text-foreground/70 max-w-xl leading-relaxed">
+            Our products are crafted for modern households that want food that is convenient, nourishing, and made with care — without preservatives, artificial shortcuts, or unnecessary additives.
+          </motion.p>
+          <motion.div variants={fadeUp} className="mt-6 max-w-md">
+            <p className="text-sm text-foreground/70">Every pack is rooted in a simple promise: real ingredients, traditional fermentation, and freshness you can taste.</p>
           </motion.div>
           <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center gap-4">
             <a href="#products">
@@ -173,7 +174,7 @@ const Hero = () => {
           <motion.div variants={fadeUp} className="mt-10 flex flex-wrap items-center gap-6 text-sm">
             {[
               { icon: BadgeCheck, label: 'Naturally Fermented' },
-              { icon: Wheat, label: 'Ancient Grains' },
+              { icon: Wheat, label: 'Heritage Grains' },
               { icon: Heart, label: 'Minority & Women-Owned' },
             ].map((b) => (
               <div key={b.label} className="flex items-center gap-2 text-foreground/70">
@@ -188,7 +189,20 @@ const Hero = () => {
           <div className="relative w-full max-w-lg mx-auto">
             <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
               className="relative rounded-3xl overflow-hidden premium-shadow-lg ring-1 ring-white">
-              <img src={IMG.ancientGrains} alt="Ancient Grains, Modern Nutrition" className="w-full h-auto object-cover" />
+              <img src={IMG.ancientGrains} alt="Ancient Grains — Heritage Rice, Millets, Lentils & Methi" className="w-full h-auto object-cover" />
+            </motion.div>
+            {/* Floating product badge */}
+            <motion.div animate={{ y: [0, -6, 0] }} transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+              className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-4 premium-shadow border border-[#B84A2B]/10">
+              <div className="flex items-center gap-3">
+                <div className="h-10 w-10 rounded-xl bg-[#FAF5EB] grid place-items-center">
+                  <Leaf className="h-5 w-5 text-[#2C5F3F]" />
+                </div>
+                <div>
+                  <div className="font-display text-sm font-bold text-[#1A1410]">100% Fresh</div>
+                  <div className="text-[10px] text-foreground/50 uppercase tracking-wider">No Preservatives</div>
+                </div>
+              </div>
             </motion.div>
           </div>
         </motion.div>
@@ -203,7 +217,7 @@ const About = () => (
     <div className="container grid lg:grid-cols-2 gap-16 items-center">
       <motion.div initial={{ opacity: 0, x: -40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8 }} className="relative">
         <div className="relative aspect-[4/5] rounded-[2.5rem] overflow-hidden premium-shadow-lg">
-          <img src={IMG.cooking} alt="Traditional Indian cooking" className="w-full h-full object-cover" />
+          <img src={IMG.cooking} alt="Mangalam Foods — Crafted with care" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#1A1410]/40 via-transparent to-transparent" />
         </div>
         <div className="absolute -bottom-8 -right-4 md:-right-8 bg-white p-6 rounded-3xl premium-shadow max-w-[260px]">
@@ -219,15 +233,23 @@ const About = () => (
       </motion.div>
 
       <motion.div initial={{ opacity: 0, x: 40 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: '-100px' }} transition={{ duration: 0.8 }}>
-        <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#B84A2B] mb-4">Our Story</span>
-        <p className="text-lg text-foreground/70 leading-relaxed mb-6 font-normal">
-          Mangalam — a word that means auspiciousness, blessing, and good fortune — is the name Monali Kotak has chosen for the next chapter of her food journey.
+        <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1A1410] mb-6">
+          Ancient Grains, <span className="italic text-[#2C5F3F]">Modern Living.</span>
+        </h2>
+        <p className="text-lg text-foreground/70 leading-relaxed mb-6">
+          At Mangalam Foods, we believe the future of food can be built from the wisdom of the past.
         </p>
         <p className="text-lg text-foreground/70 leading-relaxed mb-6">
-          Built on the foundation she has laid at Zayith Bazaar, a women-owned and minority-owned restaurant in Boston, Mangalam Foods carries forward a simple belief: <strong className="text-[#8E3520]">food made with intention has the power to nourish people, honor culture, and give back to the community.</strong>
+          Our naturally fermented batters are made with heritage rice, nutrient-rich millets, lentils, and methi (fenugreek seeds). These wholesome ingredients make our batters naturally protein-rich, gut-friendly, easy to digest, and ideal for modern everyday meals.
         </p>
         <p className="text-lg text-foreground/70 leading-relaxed mb-6">
-          Every product under the Mangalam Foods name is created with the same care Monali brings to her kitchen at Zayith Bazaar — clean ingredients, traditional technique, and a deep respect for where food comes from. Alongside her husband, her partner in both life and purpose, she is building a kitchen rooted in authenticity, a business grounded in resilience, and a community centered on inclusivity and care.
+          Alongside our batters, Mangalam Foods also creates dips, sauces, and chutneys made with carefully selected lentils, vegetables, spices, seeds, aromatics - ginger &amp; garlic, and good fats such as coconut, and olive oil. Ingredients such as turmeric, cinnamon, black pepper, cloves, ginger, garlic, curry leaves, flax seeds, sesame, coconut, olive oil, and more bring natural depth, flavor, and nourishment to our dips, sauces, and chutneys.
+        </p>
+        <p className="text-lg text-foreground/70 leading-relaxed mb-6">
+          These ingredients make our dips, sauces, and chutneys rich in vitamins, minerals, antioxidants, naturally occurring anti-inflammatory properties, and better-for-you fats.
+        </p>
+        <p className="text-xl font-semibold text-[#8E3520] leading-relaxed">
+          Fresh. Functional. Fermented. Ready when you are.
         </p>
       </motion.div>
     </div>
@@ -237,25 +259,25 @@ const About = () => (
 /* ------------------------------ WHY CHOOSE US ----------------------------- */
 const WhyChooseUs = () => {
   const items = [
-    { icon: Sprout, title: 'Naturally Fermented', desc: 'Traditional fermentation process crafted for flavor and digestibility.' },
-    { icon: FlaskConical, title: 'Gut-Friendly Tradition', desc: 'Fermented goodness that supports easier digestion, the natural way.' },
-    { icon: Heart, title: 'High Protein', desc: 'Rice & lentils deliver naturally occurring plant protein in every serving.' },
-    { icon: ShieldCheck, title: 'Gluten-Free', desc: 'Made without wheat, barley or rye — safe and clean for all.' },
-    { icon: Leaf, title: 'No Preservatives', desc: 'Zero artificial additives or chemicals. Ever.' },
-    { icon: Wheat, title: 'Ancient Grains', desc: 'Heirloom rice, millets and lentils — heritage grains reimagined.' },
-    { icon: Clock, title: 'Ready in Minutes', desc: 'Fresh, fermented goodness — open, pour, cook.' },
-    { icon: Star, title: 'Clean Ingredients', desc: 'Simple, honest ingredients you can read and trust.' },
+    { icon: Leaf, title: 'Clean Ingredients', desc: 'Made with recognizable, whole-food ingredients.' },
+    { icon: Wheat, title: 'Better Grains', desc: 'Our batters are crafted with heritage rice, millets, lentils, and methi (fenugreek seeds).' },
+    { icon: Sprout, title: 'Naturally Fermented', desc: 'Prepared through a careful fermentation process for flavor and digestibility.' },
+    { icon: Heart, title: 'Protein-Rich Batters', desc: 'Our batters are made with plant-based ingredients that naturally support protein, nourishment, and everyday wellness.' },
+    { icon: ShieldCheck, title: 'Nutrient-Rich Dips, Sauces & Chutneys', desc: 'Our dips, sauces, and chutneys use vegetables, lentils, spices, seeds, herbs, aromatics - ginger & garlic, coconut, and olive oil that naturally contain vitamins, minerals, antioxidants, anti-inflammatory properties, and good fats.' },
+    { icon: Clock, title: 'Modern Convenience', desc: 'Fresh, ready-to-cook products made for busy households.' },
+    { icon: BadgeCheck, title: 'Thoughtful Production', desc: 'Created with attention to safety, consistency, and quality.' },
+    { icon: Star, title: 'Purpose-Driven', desc: 'Built to nourish families, support community, and bring meaningful food to every table.' },
   ];
   return (
     <section className="py-24 md:py-32 grain-bg">
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-2xl mx-auto mb-16">
-          <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#B84A2B] mb-4">Why Choose Us</span>
+          <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#B84A2B] mb-4">Why Mangalam Foods</span>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1A1410] mb-4">
             The Mangalam <span className="italic text-[#2C5F3F]">Difference</span>
           </h2>
-          <p className="text-foreground/70 text-lg mb-8">Fresh · Naturally Fermented · Clean Ingredients · Convenient.</p>
-          <img src={IMG.naturallyFermented} alt="Fresh, naturally fermented, gut-friendly" className="w-full h-auto rounded-3xl premium-shadow-lg border border-[#B84A2B]/10" />
+          <p className="text-foreground/70 text-lg mb-8">Fresh · Naturally Fermented · Clean Ingredients.</p>
+          <img src={IMG.naturallyFermented} alt="Fresh, naturally fermented, gut-friendly Mangalam Foods" className="w-full h-auto rounded-3xl premium-shadow-lg border border-[#B84A2B]/10" />
         </motion.div>
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-50px' }}
           className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -278,24 +300,41 @@ const WhyChooseUs = () => {
 /* -------------------------------- PRODUCTS -------------------------------- */
 const Products = () => {
   const products = [
-    { name: 'IDLI Batter', desc: 'Naturally fermented fresh batter made with heirloom rice & urad dal. Authentic flavor, supports easier digestion.', img: IMG.idlyDosa, badge: 'Bestseller' },
-    { name: 'Dosa Batter', desc: 'Traditional fermentation creates the perfect crispy dosa every time. Gut-friendly fermentation process, ready in minutes.', img: IMG.idlyDosa, badge: 'Fresh' },
-    { name: 'Multi Millet Batter', desc: 'Ancient grains reimagined — foxtail, pearl, little millets, and ragi naturally fermented. Plant-powered, protein-rich, beyond rice.', img: IMG.ragi, badge: 'Ancient Grains' },
-    { name: 'Family Pack', desc: 'Naturally fermented, made with wholesome rice and lentils. Same clean ingredients, better value for the whole family.', img: IMG.idli3, badge: 'Value' },
+    {
+      name: 'Naturally Fermented Batters',
+      desc: 'Our signature batters are made with heritage rice, millets, lentils, and methi (fenugreek seeds), then naturally fermented for lightness, flavor, protein-rich nourishment, gut-friendly goodness, and easier digestion. They are gluten-free and vegan.',
+      img: IMG.lentils,
+      badge: 'Signature',
+      tag: 'Fresh Batters',
+    },
+    {
+      name: 'Dips, Chutneys & Sauces',
+      desc: 'Mangalam Foods also creates fresh dips, chutneys, and sauces made with thoughtfully chosen spices, seeds, herbs, aromatics - ginger & garlic, coconut, Vegetables, Lentils and olive oil. These ingredients add flavor, depth, vitamins, minerals, antioxidants, naturally occurring anti-inflammatory benefits, and good fats.',
+      img: IMG.chutney,
+      badge: 'New',
+      tag: 'Accompaniments',
+    },
+    {
+      name: 'Fresh Meal Solutions',
+      desc: 'From breakfast to dinner, our products are made to help families prepare nourishing meals quickly, without compromising on quality or taste.',
+      img: IMG.cooking,
+      badge: 'Convenient',
+      tag: 'Everyday',
+    },
   ];
   return (
     <section id="products" className="py-24 md:py-32 bg-white">
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-2xl mx-auto mb-16">
-          <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#B84A2B] mb-4">Our Products</span>
+          <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#B84A2B] mb-4">What We Make</span>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1A1410] mb-4">
             Crafted with <span className="italic text-[#2C5F3F]">Care</span>
           </h2>
-          <p className="text-foreground/70 text-lg">From our kitchen to yours — always fresh, always pure.</p>
+          <p className="text-foreground/70 text-lg">From our kitchen to yours — always fresh, always pure. Perfect for breakfast, lunch, dinner, or snacks.</p>
         </motion.div>
 
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-80px' }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
+          className="grid md:grid-cols-3 gap-7">
           {products.map((p) => (
             <motion.div key={p.name} variants={fadeUp} whileHover={{ y: -10 }}
               className="group bg-[#FBF7F0] rounded-[2rem] overflow-hidden border border-[#B84A2B]/10 hover:premium-shadow-lg transition-all duration-500">
@@ -303,7 +342,7 @@ const Products = () => {
                 <img src={p.img} alt={p.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute top-4 left-4 flex gap-2">
                   <Badge className="bg-[#2C5F3F] text-white border-0 rounded-full px-3 py-1 text-[10px] tracking-widest uppercase font-bold">
-                    <Leaf className="h-3 w-3 mr-1" /> Fresh
+                    <Leaf className="h-3 w-3 mr-1" /> {p.tag}
                   </Badge>
                   <Badge className="bg-[#C9A961] text-[#1A1410] border-0 rounded-full px-3 py-1 text-[10px] tracking-widest uppercase font-bold">
                     {p.badge}
@@ -328,8 +367,6 @@ const Products = () => {
 };
 
 /* ----------------------- A PEEK INTO OUR KITCHEN ------------------------- */
-const US_TRUCK = '/us_food_truck.png';
-
 const StageArrow = ({ direction = 'down', targetId, accent = '#B84A2B' }) => (
   <a href={`#${targetId}`} aria-label={direction === 'down' ? 'Next step' : 'Previous step'}
     className="group inline-flex flex-col items-center gap-1 select-none">
@@ -351,86 +388,91 @@ const PeekIntoKitchen = () => {
   const stages = [
     {
       id: 'stage-1',
-      title: 'The Not-So-Secret Ingredients',
-      desc: 'Heirloom rice, Millets, urad dal, Chana dal and Methi (Fenugreek Seeds) are carefully sourced from trusted local farms and stored in a clean, dry facility before they begin their journey to your table.',
+      title: 'Thoughtfully Selected Ingredients',
+      desc: 'We begin with heritage rice, millets, lentils, and methi (fenugreek seeds) for our batters, and carefully selected spices, seeds, herbs, aromatics - ginger & garlic, coconut, and olive oil for our dips, sauces, and chutneys.',
       img: IMG.lentils,
       tag: '01',
-      accent: '#B84A2B', // terracotta
+      accent: '#B84A2B',
       bg: 'from-white via-[#FBF7F0] to-white',
     },
     {
       id: 'stage-2',
-      title: 'Soaking In It',
-      desc: 'Every grain is given time — soaking patiently to absorb just the right amount of water, the first step toward a soft, wholesome batter.',
+      title: 'Patient Soaking',
+      desc: 'Each grain and lentil is soaked with time and care, allowing the ingredients to soften naturally before grinding.',
       img: IMG.lentils2,
       tag: '02',
-      accent: '#C9763A', // terracotta → gold
+      accent: '#C9763A',
       bg: 'from-[#FBF7F0] via-[#F5EEDC] to-[#FBF7F0]',
     },
     {
       id: 'stage-3',
-      title: 'The Daily Grind',
-      desc: 'Grains and pulses are ground separately to a precise consistency, with a touch of mineral salt, under close and careful watch.',
-      img: IMG.ragi,
+      title: 'Careful Grinding',
+      desc: 'The soaked ingredients are ground to a precise texture to help create the right balance of body, lightness, and consistency.',
+      img: IMG.grinding,
       tag: '03',
-      accent: '#C9A961', // gold
+      accent: '#C9A961',
       bg: 'from-[#F5EEDC] via-[#F0E6CB] to-[#F5EEDC]',
     },
     {
       id: 'stage-4',
-      title: 'The Perfect Mix',
-      desc: 'The finely ground rice, urad dal, chana dal and methi come together in exactly the right balance — the foundation of every Mangalam Foods batter.',
-      img: IMG.dosaPour,
+      title: 'Balanced Mixing',
+      desc: 'The ingredients are blended in the right proportion to form the base of every Mangalam Foods batter.',
+      img: IMG.water,
       tag: '04',
-      accent: '#8DA663', // gold → sage
+      accent: '#8DA663',
       bg: 'from-[#F0E6CB] via-[#EAE5D0] to-[#F0E6CB]',
     },
     {
       id: 'stage-5',
-      title: 'Rise and Shine',
-      desc: 'There are no shortcuts here. Natural fermentation, given the time it needs, is what gives Mangalam Foods batter its signature lightness, flavor, and gut-friendly goodness.',
-      img: IMG.idli2,
+      title: 'Natural Fermentation',
+      desc: 'There are no shortcuts here. Our batters are naturally fermented to develop lightness, flavor, and gut-friendly goodness.',
+      img: IMG.millets,
       tag: '05',
-      accent: '#2C5F3F', // forest
+      accent: '#2C5F3F',
       bg: 'from-[#EAE5D0] via-[#E5E8D8] to-[#EAE5D0]',
     },
     {
       id: 'stage-6',
-      title: 'Packed with Care',
-      desc: 'Each batch is packed, weighed, and sealed with care, then checked thoroughly to ensure nothing but pure, clean ingredients make it into every pack.',
+      title: 'Fresh Dips, Sauces & Chutneys',
+      desc: 'Our dips, sauces, and chutneys are prepared with ingredients, vegetables, lentils, spices, seeds, herbs, aromatics - ginger & garlic, coconut, and olive oil that bring freshness, depth, natural nourishment, and good fats to every spoonful.',
       img: IMG.spread,
       tag: '06',
-      accent: '#4A7A4F', // forest → mid
+      accent: '#4A7A4F',
       bg: 'from-[#E5E8D8] via-[#EFEAD9] to-[#E5E8D8]',
     },
     {
       id: 'stage-7',
-      title: 'Now Ready to Be Served with Love',
-      desc: 'From our kitchen to your table, Mangalam Foods travels fresh and ready — so every meal you serve carries the same love it was made with.',
-      img: US_TRUCK,
+      title: 'Packed with Care',
+      desc: 'Each batch is packed, weighed, sealed, and checked to ensure freshness and quality in every container.',
+      img: IMG.packaging,
       tag: '07',
       accent: '#B84A2B',
-      bg: 'from-[#EFEAD9] via-[#FBF7F0] to-white',
+      bg: 'from-[#EFEAD9] via-[#F5EEDC] to-[#FBF7F0]',
+    },
+    {
+      id: 'stage-8',
+      title: 'Ready for Your Table',
+      desc: 'From our kitchen to yours, Mangalam Foods makes it easier to serve fresh, nourishing meals with confidence.',
+      img: US_TRUCK,
+      tag: '08',
+      accent: '#8E3520',
+      bg: 'from-[#FBF7F0] via-white to-white',
       isFinal: true,
     },
   ];
 
   return (
     <section id="peek" className="bg-white">
-      {/* ----------- HERO BANNER ----------- */}
+      {/* HERO BANNER */}
       <div className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
-        {/* gradient brand bg */}
         <div className="absolute inset-0 bg-gradient-to-br from-[#FBF7F0] via-[#F5EEDC] to-[#EAE5D0]" />
-        {/* parallax blobs */}
         <div className="absolute -top-32 -left-20 w-[500px] h-[500px] rounded-full bg-gradient-to-br from-[#B84A2B]/15 to-transparent blur-3xl" />
         <div className="absolute -bottom-32 -right-20 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-[#2C5F3F]/15 to-transparent blur-3xl" />
         <div className="absolute top-1/3 right-1/4 w-[300px] h-[300px] rounded-full bg-gradient-to-br from-[#C9A961]/20 to-transparent blur-3xl" />
-        {/* grain overlay */}
         <div className="absolute inset-0 opacity-30" style={{
           backgroundImage: "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.72 0 0 0 0 0.29 0 0 0 0 0.17 0 0 0 0.15 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\")"
         }} />
 
-        {/* floating illustrations */}
         <motion.div animate={{ rotate: 360 }} transition={{ duration: 80, repeat: Infinity, ease: 'linear' }}
           className="absolute top-24 left-16 text-[#C9A961]/40 hidden md:block">
           <Wheat className="h-16 w-16" />
@@ -439,10 +481,6 @@ const PeekIntoKitchen = () => {
           className="absolute bottom-24 right-16 text-[#2C5F3F]/40 hidden md:block">
           <Leaf className="h-14 w-14" />
         </motion.div>
-        <motion.div animate={{ y: [0, -15, 0] }} transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/2 left-1/4 text-[#B84A2B]/30 hidden lg:block">
-          <Sprout className="h-12 w-12" />
-        </motion.div>
 
         <div className="container relative z-10 text-center max-w-3xl py-24">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
@@ -450,18 +488,24 @@ const PeekIntoKitchen = () => {
               <Sparkles className="h-4 w-4 text-[#C9A961]" />
               <span className="text-xs tracking-[0.3em] uppercase font-bold text-[#8E3520]">Our Process</span>
             </div>
-            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[1] text-[#1A1410] mb-8">
+            <h2 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold leading-[1] text-[#1A1410] mb-8">
               A Peek Into
               <br />
               <span className="italic bg-gradient-to-r from-[#B84A2B] via-[#C9A961] to-[#2C5F3F] bg-clip-text text-transparent">
                 Our Kitchen
               </span>
-            </h1>
+            </h2>
             <p className="text-foreground/75 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl mx-auto">
-              From our kitchen reaches your table, every Mangalam product follows two simple rules &mdash; <strong className="text-[#8E3520]">keep it safe</strong>, and <strong className="text-[#2C5F3F]">keep it free of preservative</strong>.
+              From our kitchen to your table, every Mangalam Foods product follows two simple rules: keep it safe, and keep it preservative-free.
+            </p>
+            <p className="text-foreground/75 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl mx-auto">
+              Our batter process begins with carefully selected heritage rice, millets, lentils, and methi (fenugreek seeds). Each ingredient is handled with care, soaked patiently, ground to the right consistency, blended in balance, and naturally fermented without shortcuts.
+            </p>
+            <p className="text-foreground/75 text-lg md:text-xl leading-relaxed mb-6 max-w-2xl mx-auto">
+              Our dips, sauces, and chutneys are crafted separately using thoughtfully selected lentils, vegetables, spices, seeds, herbs, aromatics - ginger &amp; garlic, coconut, and olive oil to create bold, nourishing accompaniments full of natural flavor, whole-food goodness, and good fats.
             </p>
             <p className="text-foreground/75 text-lg md:text-xl leading-relaxed mb-10 max-w-2xl mx-auto">
-              From the fields till it reaches your table &mdash; here&rsquo;s a glimpse into how we prepare our heirloom-grain, naturally fermented batters and foods.
+              Every batch is packed, sealed, and checked with attention to freshness, quality, and consistency — so what reaches your home is clean, honest food made with purpose.
             </p>
             <a href="#stage-1" className="inline-flex flex-col items-center gap-3 group">
               <span className="text-xs tracking-[0.35em] uppercase font-bold text-[#8E3520] group-hover:text-[#B84A2B] transition-colors">
@@ -476,7 +520,7 @@ const PeekIntoKitchen = () => {
         </div>
       </div>
 
-      {/* ----------- STAGES ----------- */}
+      {/* STAGES */}
       {stages.map((s, i) => {
         const prev = i > 0 ? stages[i - 1].id : null;
         const next = i < stages.length - 1 ? stages[i + 1].id : null;
@@ -484,7 +528,6 @@ const PeekIntoKitchen = () => {
         return (
           <section key={s.id} id={s.id}
             className={`relative bg-gradient-to-br ${s.bg} py-24 md:py-32 overflow-hidden`}>
-            {/* decorative accent blob */}
             <div className="absolute top-0 right-0 w-[400px] h-[400px] rounded-full blur-3xl opacity-20"
               style={{ background: `radial-gradient(circle, ${s.accent} 0%, transparent 70%)` }} />
             <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full blur-3xl opacity-15"
@@ -498,27 +541,23 @@ const PeekIntoKitchen = () => {
                 transition={{ duration: 0.8 }}
                 className={`grid md:grid-cols-2 gap-12 lg:gap-20 items-center ${!imageLeft ? 'md:[direction:rtl]' : ''}`}>
 
-                {/* IMAGE */}
                 <div className="relative md:[direction:ltr]">
                   <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.6 }}
                     className="relative aspect-[5/4] rounded-[2.5rem] overflow-hidden premium-shadow-lg">
                     <img src={s.img} alt={s.title} className="w-full h-full object-cover" />
-                    {/* color overlay tinted by stage accent */}
                     <div className="absolute inset-0 mix-blend-multiply opacity-15"
                       style={{ background: `linear-gradient(135deg, ${s.accent} 0%, transparent 60%)` }} />
                     <div className="absolute inset-0 bg-gradient-to-tr from-[#1A1410]/25 via-transparent to-transparent" />
                   </motion.div>
-                  {/* big number badge */}
                   <div className="absolute -top-8 -left-4 md:-left-12 font-display font-bold text-3xl h-24 w-24 rounded-3xl grid place-items-center premium-shadow-lg ring-4 ring-white text-white"
                     style={{ background: `linear-gradient(135deg, ${s.accent}, ${s.accent}DD)` }}>
                     {s.tag}
                   </div>
                 </div>
 
-                {/* CONTENT */}
                 <div className="md:[direction:ltr]">
                   <div className="text-xs font-bold tracking-[0.35em] mb-5" style={{ color: s.accent }}>
-                    STEP {s.tag} <span className="opacity-40">/ 07</span>
+                    STEP {s.tag} <span className="opacity-40">/ 08</span>
                   </div>
                   <h3 className="font-display text-3xl md:text-5xl lg:text-6xl font-bold text-[#1A1410] mb-6 leading-[1.1] text-balance">
                     {s.title}
@@ -533,7 +572,6 @@ const PeekIntoKitchen = () => {
                     </span>
                   </div>
 
-                  {/* up/down arrow nav */}
                   <div className="flex items-center gap-6">
                     {prev && <StageArrow direction="up" targetId={prev} accent={s.accent} />}
                     {next && <StageArrow direction="down" targetId={next} accent={s.accent} />}
@@ -575,7 +613,6 @@ const LiveClock = ({ className = '' }) => {
     return () => clearInterval(t);
   }, []);
   if (!now) {
-    // Avoid hydration mismatch: render placeholder until mounted on client
     return <div className={`font-mono ${className}`}>--/--/----&nbsp;&nbsp;|&nbsp;&nbsp;--:--:--</div>;
   }
   const pad = (n) => String(n).padStart(2, '0');
@@ -589,7 +626,6 @@ const LiveClock = ({ className = '' }) => {
 };
 
 const CameraTile = ({ name, img, caption, idx = 0, span = 'normal' }) => {
-  // 4 different Ken Burns loops for variety
   const kb = [
     { initial: { scale: 1, x: 0, y: 0 }, animate: { scale: 1.12, x: -12, y: -8 } },
     { initial: { scale: 1.08, x: 0, y: 0 }, animate: { scale: 1, x: 10, y: 6 } },
@@ -604,7 +640,6 @@ const CameraTile = ({ name, img, caption, idx = 0, span = 'normal' }) => {
         span === 'wide' ? 'lg:col-span-2' : ''
       }`}>
       <div className="aspect-video relative overflow-hidden bg-[#0c0806]">
-        {/* Looping Ken Burns image - mimics a live video feed */}
         <motion.img
           src={img}
           alt={name}
@@ -613,9 +648,7 @@ const CameraTile = ({ name, img, caption, idx = 0, span = 'normal' }) => {
           transition={{ duration: dur, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
           className="absolute inset-0 w-full h-full object-cover"
         />
-        {/* subtle vignette only — no heavy filter, keep image real */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-black/15 pointer-events-none" />
-        {/* subtle moving scan-glow (the live "feel") */}
         <motion.div
           aria-hidden="true"
           initial={{ y: '-100%' }}
@@ -623,7 +656,6 @@ const CameraTile = ({ name, img, caption, idx = 0, span = 'normal' }) => {
           transition={{ duration: 6, repeat: Infinity, ease: 'linear' }}
           className="pointer-events-none absolute inset-x-0 h-24 bg-gradient-to-b from-transparent via-white/[0.05] to-transparent"
         />
-        {/* corner brackets (subtle) */}
         <div className="absolute top-2.5 left-2.5 w-4 h-4 border-l border-t border-white/40" />
         <div className="absolute top-2.5 right-2.5 w-4 h-4 border-r border-t border-white/40" />
         <div className="absolute bottom-2.5 left-2.5 w-4 h-4 border-l border-b border-white/40" />
@@ -660,7 +692,7 @@ const TransparenSee = () => {
   const shareUrl = typeof window !== 'undefined' ? window.location.href : 'https://mangalamfoods.us';
   const share = (network) => {
     const url = encodeURIComponent(shareUrl);
-    const text = encodeURIComponent('See where our food comes from — Mangalam TransparenSee Live Kitchen');
+    const text = encodeURIComponent('See where our food comes from — Mangalam Foods Live Kitchen');
     const map = {
       facebook: `https://www.facebook.com/sharer/sharer.php?u=${url}`,
       twitter: `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
@@ -675,29 +707,27 @@ const TransparenSee = () => {
       <div className="absolute inset-0 opacity-[0.06]" style={{ backgroundImage: 'radial-gradient(circle at 20% 30%, #C9A961 0%, transparent 50%), radial-gradient(circle at 80% 70%, #B84A2B 0%, transparent 50%)' }} />
 
       <div className="container relative">
-        {/* HEADER */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-14">
-          {/* TransparenSee wordmark */}
           <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-white/5 border border-[#C9A961]/30 backdrop-blur mb-8">
             <span className="relative flex h-2.5 w-2.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF3B30] opacity-75" />
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FF3B30]" />
             </span>
             <Eye className="h-4 w-4 text-[#C9A961]" />
-            <span className="text-xs tracking-[0.3em] uppercase font-bold text-[#C9A961]">TransparenSee</span>
+            <span className="text-xs tracking-[0.3em] uppercase font-bold text-[#C9A961]">The Mangalam Live Kitchen</span>
           </div>
-          <h2 className="text-4xl md:text-5xl mb-6 leading-[1.05] text-balance">
-            A Peek Inside Our <span className="italic text-[#C9A961]">Kitchen</span>
+          <h2 className="font-display text-4xl md:text-5xl mb-6 leading-[1.05] text-balance">
+            Trust begins with <span className="italic text-[#C9A961]">transparency.</span>
           </h2>
           <p className="text-white/75 text-lg leading-relaxed mb-5">
-            Your kitchen is a space of <strong className="text-[#C9A961]">Love, Purity and Trust</strong>. Our factory is the same.
-            It&rsquo;s our kitchen, where we bring together the finest ingredients, the latest technology and
-            traditional recipes in a pristine, hygienic environment that has to be seen to be believed.
+            At Mangalam Foods, we believe customers should know how their food is made. Our kitchen is designed around cleanliness, careful handling, ingredient integrity, and process discipline.
+          </p>
+          <p className="text-white/65 text-base leading-relaxed mb-5">
+            From ingredient selection to soaking, grinding, fermentation, preparation, packing, and storage, every step is guided by food safety, freshness, and care.
           </p>
           <p className="text-white/65 text-base leading-relaxed">
-            So here&rsquo;s the window. A never-before, no-filter look at where your favourite Mangalam food
-            comes from. It&rsquo;s our way of saying <strong className="text-[#C9A961]">thank you</strong> for trusting us with your family&rsquo;s nutrition and well-being.
+            This is more than production. It is a kitchen built on trust.
           </p>
           <div className="inline-flex items-center gap-2 mt-7 px-4 py-2 rounded-full bg-black/40 border border-white/10 backdrop-blur">
             <Clock className="h-3.5 w-3.5 text-[#C9A961]" />
@@ -705,15 +735,14 @@ const TransparenSee = () => {
           </div>
         </motion.div>
 
-        {/* FEATURED TOUR CARD (still image instead of video) */}
+        {/* FEATURED TOUR CARD */}
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.7 }}
           className="relative max-w-5xl mx-auto mb-16 rounded-[2rem] overflow-hidden border border-white/10 bg-black/40 backdrop-blur group">
           <div className="aspect-[21/9] relative overflow-hidden">
-            <img src={FACTORY_IMG.cmo} alt="Tour of Mangalam's kitchen" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000"
+            <img src={FACTORY_IMG.cmo} alt="Mangalam Foods kitchen — built on trust" className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-1000"
               style={{ filter: 'contrast(0.95) saturate(0.9) brightness(0.85)' }} />
             <div className="absolute inset-0 bg-gradient-to-r from-black via-black/50 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-            {/* Cinematic corner brackets */}
             <div className="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-[#C9A961]" />
             <div className="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-[#C9A961]" />
             <div className="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-[#C9A961]" />
@@ -726,93 +755,37 @@ const TransparenSee = () => {
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
                     <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-white" />
                   </span>
-                  Featured Tour
+                  Live Kitchen
                 </div>
-                <h3 className="font-display text-2xl md:text-4xl font-bold mb-3 leading-tight text-white">
-                  A Tour of Our Kitchen by Our<br />
-                  <span className="italic text-[#C9A961]">Chief Manufacturing Officer</span>
+                <h3 className="font-display text-2xl md:text-4xl font-bold text-white mb-4 leading-tight">
+                  Our Kitchen. Your Confidence.
                 </h3>
-                <p className="text-white/75 text-sm md:text-base leading-relaxed">
-                  Walk through our grand home kitchen, where we take the finest ingredients to be washed,
-                  soaked, ground and mixed to create the batter you love so much. All of it right here in
-                  our Sudbury, MA facility &mdash; now you get to see it all.
+                <p className="text-white/80 text-sm md:text-base leading-relaxed mb-6">
+                  Every step — from raw ingredient to packed product — is handled with the same care we would give our own family&rsquo;s food.
                 </p>
+                <a href="#contact">
+                  <Button size="lg" className="rounded-full bg-[#C9A961] hover:bg-[#A8893F] text-[#1A1410] font-bold px-7 py-6 w-fit">
+                    Request a Kitchen Tour <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </a>
               </div>
             </div>
           </div>
-        </motion.div>
-
-        {/* TRANSITION TEXT */}
-        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-          className="text-center max-w-3xl mx-auto mb-14">
-          <p className="text-white/80 text-base md:text-lg leading-relaxed">
-            <strong className="text-[#C9A961]">Eight live zones.</strong> One promise of transparency.
-            Take a look inside every step of how Mangalam batter is made &mdash; from grain feeding to chilled dispatch.
-          </p>
         </motion.div>
 
         {/* CAMERA GRID */}
         <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-50px' }}
-          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {zones.map((z) => (
-            <CameraTile key={z.name} name={z.name} img={z.img} caption={z.caption} />
+          className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
+          {zones.map((z, i) => (
+            <CameraTile key={z.name} name={z.name} img={z.img} caption={z.caption} idx={i} />
           ))}
-        </motion.div>
-
-        {/* STATS */}
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          className="mt-16 grid md:grid-cols-3 gap-5">
-          {[
-            { icon: Eye, num: '08', label: 'Live Camera Zones' },
-            { icon: Radio, num: '24/7', label: 'Continuous Streaming' },
-            { icon: ShieldCheck, num: '0', label: 'Hidden Corners' },
-          ].map((s) => (
-            <div key={s.label} className="flex items-center gap-5 bg-white/5 backdrop-blur p-6 rounded-3xl border border-white/10">
-              <div className="h-16 w-16 rounded-2xl bg-[#C9A961]/15 grid place-items-center shrink-0">
-                <s.icon className="h-7 w-7 text-[#C9A961]" />
-              </div>
-              <div>
-                <div className="font-display text-4xl font-bold text-white">{s.num}</div>
-                <div className="text-xs uppercase tracking-widest text-white/60">{s.label}</div>
-              </div>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* READY TO BE DELIVERED */}
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-          className="mt-20 rounded-[2.5rem] overflow-hidden relative border border-white/10 bg-black/40">
-          <div className="grid md:grid-cols-2">
-            <div className="relative aspect-[4/3] md:aspect-auto overflow-hidden">
-              <img src={FACTORY_IMG.van} alt="Refrigerated delivery van" className="w-full h-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-black/40 md:to-[#1A1410]" />
-              <div className="absolute top-4 left-4 flex items-center gap-1.5 bg-[#2C5F3F] text-white text-[10px] font-bold tracking-widest uppercase px-2.5 py-1 rounded-md">
-                <Truck className="h-3 w-3" /> Cold-Chain
-              </div>
-            </div>
-            <div className="p-8 md:p-12 flex flex-col justify-center">
-              <div className="text-xs tracking-[0.3em] uppercase font-bold text-[#C9A961] mb-3">Final Step</div>
-              <h3 className="font-display text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
-                Ready to be <span className="italic text-[#C9A961]">Delivered.</span>
-              </h3>
-              <p className="text-white/75 text-base md:text-lg leading-relaxed mb-6">
-                Our refrigerated vans then transport the fresh batter packs to a store near you &mdash;
-                preserving every bit of freshness from our kitchen to yours.
-              </p>
-              <a href="#contact">
-                <Button size="lg" className="rounded-full bg-[#C9A961] hover:bg-[#A8893F] text-[#1A1410] font-bold px-7 py-6 w-fit">
-                  Request a Factory Tour <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </a>
-            </div>
-          </div>
         </motion.div>
 
         {/* SHARE */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
           className="mt-14 text-center">
           <p className="font-display text-2xl md:text-3xl font-bold text-white leading-tight mb-2">
-            Share the view with <span className="italic text-[#C9A961]">friends &amp; family!</span>
+            Share the view with <span className="italic text-[#C9A961]">friends & family!</span>
           </p>
           <p className="text-white/60 text-sm mb-6 italic">
             &ldquo;If our kitchen is good enough for our families, it&rsquo;s good enough for yours.&rdquo;
@@ -840,22 +813,22 @@ const TransparenSee = () => {
 };
 
 /* ------------------------------- PROCESS --------------------------------- */
-import { useRef } from 'react';
 const Process = () => {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"]
+    offset: ['start center', 'end center'],
   });
 
   const steps = [
-    { icon: Wheat, title: 'Premium Grain Selection', desc: 'Heirloom rice, urad dal, millets & methi from trusted farms.' },
-    { icon: Droplets, title: 'Cleaning & Washing', desc: 'Multi-stage cleansing using purified water.' },
-    { icon: Sprout, title: 'Traditional Grinding', desc: 'Stone-ground texture for authentic taste.' },
-    { icon: FlaskConical, title: 'Natural Fermentation', desc: '12-hour temperature-controlled fermentation.' },
-    { icon: ShieldCheck, title: 'Quality Testing', desc: 'Lab-tested for taste, texture and safety.' },
-    { icon: Package, title: 'Hygienic Packaging', desc: 'Sealed in food-safe packaging to lock freshness.' },
-    { icon: Truck, title: 'Delivered Fresh', desc: 'Cold-chain delivered the very next day.' },
+    { icon: Wheat, title: 'Thoughtfully Selected Ingredients', desc: 'We begin with heritage rice, millets, lentils, and methi (fenugreek seeds) for our batters, and carefully selected spices, seeds, herbs, aromatics - ginger & garlic, coconut, and olive oil for our dips, sauces, and chutneys.' },
+    { icon: Droplets, title: 'Patient Soaking', desc: 'Each grain and lentil is soaked with time and care, allowing the ingredients to soften naturally before grinding.' },
+    { icon: Sprout, title: 'Careful Grinding', desc: 'The soaked ingredients are ground to a precise texture to help create the right balance of body, lightness, and consistency.' },
+    { icon: Soup, title: 'Balanced Mixing', desc: 'The ingredients are blended in the right proportion to form the base of every Mangalam Foods batter.' },
+    { icon: FlaskConical, title: 'Natural Fermentation', desc: 'There are no shortcuts here. Our batters are naturally fermented to develop lightness, flavor, and gut-friendly goodness.' },
+    { icon: ShieldCheck, title: 'Fresh Dips, Sauces & Chutneys', desc: 'Our dips, sauces, and chutneys are prepared with ingredients, vegetables, lentils, spices, seeds, herbs, aromatics - ginger & garlic, coconut, and olive oil that bring freshness, depth, natural nourishment, and good fats to every spoonful.' },
+    { icon: Package, title: 'Packed with Care', desc: 'Each batch is packed, weighed, sealed, and checked to ensure freshness and quality in every container.' },
+    { icon: Truck, title: 'Ready for Your Table', desc: 'From our kitchen to yours, Mangalam Foods makes it easier to serve fresh, nourishing meals with confidence.' },
   ];
   return (
     <section id="process" className="py-24 md:py-32 grain-bg relative overflow-hidden">
@@ -863,29 +836,26 @@ const Process = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-2xl mx-auto mb-20">
           <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#B84A2B] mb-4">Our Process</span>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1A1410] mb-4">
-            From Grain to <span className="italic text-[#2C5F3F]">Your Plate</span>
+            From Grain to <span className="italic text-[#2C5F3F]">Your Table</span>
           </h2>
-          <p className="text-foreground/70 text-lg">Seven careful steps. One promise of freshness.</p>
+          <p className="text-foreground/70 text-lg">Eight careful steps. One promise of freshness.</p>
         </motion.div>
 
         <div className="relative max-w-4xl mx-auto" ref={containerRef}>
-          {/* Background Line */}
           <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-[#B84A2B]/10 md:-translate-x-1/2 rounded-full" />
-          
-          {/* Animated Scroll Line */}
-          <motion.div 
+          <motion.div
             className="absolute left-8 md:left-1/2 top-0 w-1 bg-gradient-to-b from-[#B84A2B] via-[#C9A961] to-[#2C5F3F] md:-translate-x-1/2 origin-top rounded-full z-0"
             style={{ scaleY: scrollYProgress, bottom: 0 }}
           />
 
           {steps.map((s, i) => (
             <motion.div key={s.title}
-              initial={{ opacity: 0, y: 30 }} 
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-20%' }} 
+              viewport={{ once: true, margin: '-20%' }}
               transition={{ duration: 0.5, type: 'spring' }}
               className={`relative mb-12 flex items-center group ${i % 2 === 0 ? 'md:justify-start' : 'md:justify-end'}`}>
-              
+
               <div className="absolute left-8 md:left-1/2 -translate-x-1/2 z-10 transition-transform duration-500 group-hover:scale-110">
                 <div className="h-16 w-16 rounded-full bg-white grid place-items-center premium-shadow-lg ring-4 ring-white border-2 border-[#C9A961]/20">
                   <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#B84A2B] to-[#8E3520] grid place-items-center text-white shadow-inner">
@@ -895,12 +865,11 @@ const Process = () => {
               </div>
 
               <div className={`pl-28 md:pl-0 md:w-[42%] ${i % 2 === 0 ? 'md:pr-14 md:text-right' : 'md:pl-14'}`}>
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, x: i % 2 === 0 ? 20 : -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.2, duration: 0.5 }}
-                >
-                  <div className={`inline-block text-xs font-bold tracking-widest text-[#C9A961] mb-2`}>STEP {String(i + 1).padStart(2, '0')}</div>
+                  transition={{ delay: 0.2, duration: 0.5 }}>
+                  <div className="inline-block text-xs font-bold tracking-widest text-[#C9A961] mb-2">STEP {String(i + 1).padStart(2, '0')}</div>
                   <h3 className="font-display text-2xl font-bold text-[#1A1410] mb-3 group-hover:text-[#B84A2B] transition-colors">{s.title}</h3>
                   <p className="text-foreground/70 leading-relaxed bg-white/50 backdrop-blur-sm p-4 rounded-2xl border border-white/40 shadow-sm">{s.desc}</p>
                 </motion.div>
@@ -948,22 +917,25 @@ const Quality = () => {
 /* -------------------------------- OUR PROMISE -------------------------------- */
 const OurPromise = () => {
   const items = [
-    { icon: ShieldCheck, title: 'Gluten-Free', desc: 'Every recipe is formulated without wheat, barley, or rye.', color: '#B84A2B' },
-    { icon: Heart, title: 'Nut-Free', desc: 'Safe, allergen-conscious kitchens and ingredient sourcing throughout.', color: '#2C5F3F' },
-    { icon: Leaf, title: 'Dairy-Free / Vegan', desc: 'Plant-forward options that don’t compromise on flavor.', color: '#C9A961' },
-    { icon: FlaskConical, title: 'Naturally Fermented', desc: 'Traditional fermentation for gut health and deep, authentic flavor.', color: '#B84A2B' },
-    { icon: Wheat, title: 'Heirloom Grains & Rice', desc: 'Ancient, non-hybridized varieties prized for their nutrition.', color: '#2C5F3F' },
-    { icon: Sprout, title: 'Real Health Benefits', desc: 'Whole-food ingredients chosen to nourish, not just fill.', color: '#C9A961' },
+    { icon: ShieldCheck, title: 'Gluten-Free', desc: 'Formulated without wheat, barley, or rye.', color: '#B84A2B' },
+    { icon: Heart, title: 'Vegan', desc: 'Plant-based and dairy-free.', color: '#2C5F3F' },
+    { icon: Leaf, title: 'Preservative-Free', desc: 'Made without artificial preservatives or unnecessary additives.', color: '#C9A961' },
+    { icon: FlaskConical, title: 'Naturally Fermented', desc: 'Our batters are fermented slowly and carefully to support flavor, texture, and easier digestion.', color: '#B84A2B' },
+    { icon: Heart, title: 'Gut-Friendly', desc: 'Crafted through a traditional fermentation process that supports a lighter, more digestible eating experience.', color: '#2C5F3F' },
+    { icon: Sprout, title: 'Protein-Rich Batters', desc: 'Made with lentils, millets, heritage rice, and methi (fenugreek seeds), our batters naturally support plant-based protein and everyday nourishment.', color: '#C9A961' },
+    { icon: Leaf, title: 'Nutrient-Rich Dips, Sauces & Chutneys', desc: 'Our dips, sauces, and chutneys are made with vegetables, lentils, spices, seeds, herbs, aromatics - ginger & garlic, coconut, and olive oil that naturally contain vitamins, minerals, antioxidants, anti-inflammatory properties, and good fats.', color: '#B84A2B' },
+    { icon: Wheat, title: 'Made with Heritage Ingredients', desc: 'Prepared with heritage rice, millets, lentils, methi (fenugreek seeds), and carefully selected whole-food ingredients.', color: '#2C5F3F' },
+    { icon: Clock, title: 'Fresh & Ready to Cook', desc: 'Convenient enough for busy homes, thoughtful enough for the table.', color: '#C9A961' },
   ];
   return (
-    <section id="promise" className="py-24 md:py-32 bg-gradient-to-br from-[#FBF7F0] via-white to-[#F5EEDC]">
+    <section id="benefits" className="py-24 md:py-32 bg-gradient-to-br from-[#FBF7F0] via-white to-[#F5EEDC]">
       <div className="container">
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-2xl mx-auto mb-16">
           <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#B84A2B] mb-4">Our Promise</span>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1A1410] mb-4">
             Clean, Honest <span className="italic text-[#2C5F3F]">Food</span>
           </h2>
-          <p className="text-foreground/70 text-lg">Every Mangalam Foods product is made to nourish — free from common allergens, rooted in heirloom grains, and naturally fermented for real Gut health benefits.</p>
+          <p className="text-foreground/70 text-lg">Every Mangalam Foods product is made to nourish — rooted in heritage grains, naturally fermented, and crafted with whole-food ingredients you can trust.</p>
         </motion.div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((it, i) => (
@@ -985,6 +957,26 @@ const OurPromise = () => {
   );
 };
 
+/* -------------------------------- ABOUT US -------------------------------- */
+const AboutUs = () => (
+  <section className="py-24 md:py-32 bg-white relative overflow-hidden border-b border-[#B84A2B]/10">
+    <div className="container max-w-4xl mx-auto text-center">
+      <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#B84A2B] mb-4">About Us</span>
+      <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1A1410] mb-8">
+        Mangalam means <span className="italic text-[#2C5F3F]">auspiciousness</span>, blessing, and good fortune.
+      </h2>
+      <p className="text-lg text-foreground/70 leading-relaxed mb-6 text-balance">
+        Mangalam Foods was created to bring fresh, naturally fermented, heritage-grain foods to more tables. Built on years of culinary experience and a deep belief in clean, honest food, Mangalam Foods is rooted in tradition, strengthened by thoughtful production, and designed for modern living.
+      </p>
+      <p className="text-lg text-foreground/70 leading-relaxed mb-6 text-balance">
+        Our vision is to create a food company that nourishes people, respects ingredients, supports community, and makes high-quality fresh foods more accessible.
+      </p>
+      <p className="text-lg text-foreground/70 leading-relaxed text-balance">
+        As a woman-owned and minority-owned business based in Massachusetts, Mangalam Foods is committed to building a company with purpose — one that values freshness, transparency, sustainability, and care at every step.
+      </p>
+    </div>
+  </section>
+);
 
 /* -------------------------------- OUR MISSION -------------------------------- */
 const Mission = () => (
@@ -992,64 +984,41 @@ const Mission = () => (
     <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cg fill='%23C9A961' fill-rule='evenodd'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/svg%3E")` }} />
     <div className="container relative text-center max-w-3xl mx-auto">
       <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#C9A961] mb-4">Our Mission</span>
-      <h2 className="font-display text-3xl md:text-5xl font-bold mb-8">
-        To create a sustainable, community-driven food model
+      <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-10 max-w-2xl text-balance">
+        To create a sustainable, community-driven food company that:
       </h2>
       <div className="grid sm:grid-cols-2 gap-6 text-left mb-10">
-        {[
-          'Celebrates cultural heritage',
-          'Supports local ecosystems',
-          'Reduces food waste',
-          'Feeds and uplifts communities in need'
-        ].map((item, i) => (
-          <div key={i} className="flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
+          <div className="flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
             <CheckCircle2 className="h-5 w-5 text-[#C9A961] shrink-0" />
-            <span className="text-white/90 font-medium">{item}</span>
+            <span className="text-white/90 font-medium">Celebrates heritage ingredients</span>
           </div>
-        ))}
+          <div className="flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
+            <CheckCircle2 className="h-5 w-5 text-[#C9A961] shrink-0" />
+            <span className="text-white/90 font-medium">Supports local ecosystems</span>
+          </div>
+          <div className="flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
+            <CheckCircle2 className="h-5 w-5 text-[#C9A961] shrink-0" />
+            <span className="text-white/90 font-medium">Reduces food waste</span>
+          </div>
+          <div className="flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
+            <CheckCircle2 className="h-5 w-5 text-[#C9A961] shrink-0" />
+            <span className="text-white/90 font-medium">Creates nourishing, convenient foods</span>
+          </div>
+          <div className="flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
+            <CheckCircle2 className="h-5 w-5 text-[#C9A961] shrink-0" />
+            <span className="text-white/90 font-medium">Builds strong partnerships</span>
+          </div>
+          <div className="flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
+            <CheckCircle2 className="h-5 w-5 text-[#C9A961] shrink-0" />
+            <span className="text-white/90 font-medium">Feeds and uplifts communities in need</span>
+          </div>
       </div>
       <p className="text-xl md:text-2xl text-white/80 italic font-display">
-        "Food, for Monali, is not just a product — it is a responsibility and an opportunity to give back."
+        &ldquo;For Mangalam Foods, food is not just a product. It is a responsibility, a connection, and a blessing worth sharing.&rdquo;
       </p>
     </div>
   </section>
 );
-
-/* ------------------------------- CAPABILITIES ------------------------------- */
-const Capabilities = () => {
-  const caps = [
-    { title: 'Culinary R&D & Menu Development', desc: 'Recipe innovation rooted in heirloom grains and fermentation craft.' },
-    { title: 'Sourcing & Supply Chain', desc: 'Reliable, ethical pipelines with local farms and allergen-safe suppliers.' },
-    { title: 'Food Safety & Compliance', desc: 'Rigorous standards for allergen control, quality, and certification.' },
-    { title: 'Catering Operations & Logistics', desc: 'Seamless execution for events, offices, and institutional accounts.' },
-    { title: 'Finance & Business Planning', desc: 'Disciplined budgeting, pricing, and growth-stage decision making.' },
-    { title: 'Brand, Marketing & Outreach', desc: 'Storytelling that connects mission, culture, and community impact.' },
-    { title: 'Workforce Training & Culture', desc: 'Building skilled, mission-aligned teams that grow with the business.' },
-    { title: 'Partnerships & Community Relations', desc: 'Strong ties with farms, shelters, schools, and local institutions.' },
-  ];
-  return (
-    <section className="py-24 md:py-32 bg-white">
-      <div className="container">
-        <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-2xl mx-auto mb-16">
-          <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#B84A2B] mb-4">Capabilities</span>
-          <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1A1410] mb-4">
-            Capabilities to Run & Execute a <span className="italic text-[#2C5F3F]">Great Business</span>
-          </h2>
-          <p className="text-foreground/70 text-lg">The operating strengths behind the vision — turning purpose into a sustainable, well-run enterprise.</p>
-        </motion.div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-          {caps.map((c, i) => (
-            <div key={i} className="p-6 bg-[#FBF7F0] rounded-2xl border border-[#B84A2B]/10 hover:border-[#B84A2B]/30 hover:premium-shadow transition-all">
-              <div className="h-10 w-10 rounded-full bg-white grid place-items-center mb-4 text-[#8E3520] font-bold font-display shadow-sm">{i + 1}</div>
-              <h3 className="font-display font-bold text-lg text-[#1A1410] mb-2">{c.title}</h3>
-              <p className="text-sm text-foreground/70 leading-relaxed">{c.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
 
 /* ------------------------------ JOIN THE JOURNEY ------------------------------ */
 const JoinJourney = () => (
@@ -1059,16 +1028,26 @@ const JoinJourney = () => (
         Join the <span className="italic text-[#B84A2B]">Journey</span>
       </h2>
       <p className="text-lg text-foreground/70 leading-relaxed mb-6">
-        Mangalam Foods’s story is just beginning — but its purpose is clear: to nourish people, respect the planet, and bring heirloom tradition to every table it reaches.
+        Mangalam Foods is just beginning, but our purpose is clear: to nourish people, respect ingredients, and bring heritage-grain tradition to modern tables.
       </p>
       <p className="text-lg text-foreground/70 leading-relaxed mb-10">
-        Whether through a pack of batter, a catered meal, or a community partnership — every step forward is part of something larger: one that turns food into a blessing worth sharing.
+        Whether through a pack of batter, a fresh chutney, a sauce, a catered meal, or a community partnership, every step forward is part of something larger.
       </p>
-      <a href="#contact">
-        <Button size="lg" className="rounded-full bg-[#B84A2B] hover:bg-[#8E3520] text-white px-8 py-6 text-base premium-shadow">
-          Become a Partner <ArrowRight className="ml-2 h-5 w-5" />
-        </Button>
-      </a>
+      <p className="text-lg text-foreground/70 leading-relaxed mb-10 font-semibold text-[#8E3520]">
+        Mangalam Foods — A Blessing at Every Table.
+      </p>
+      <div className="flex flex-wrap justify-center gap-4">
+        <a href="#contact">
+          <Button size="lg" className="rounded-full bg-[#B84A2B] hover:bg-[#8E3520] text-white px-8 py-6 text-base premium-shadow">
+            Get in Touch <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+        </a>
+        <a href="/pop-up-events">
+          <Button size="lg" variant="outline" className="rounded-full border-2 border-[#2C5F3F] text-[#2C5F3F] hover:bg-[#2C5F3F] hover:text-white px-8 py-6 text-base">
+            Book a Pop-Up Event <ArrowRight className="ml-2 h-5 w-5" />
+          </Button>
+        </a>
+      </div>
     </div>
   </section>
 );
@@ -1076,8 +1055,8 @@ const JoinJourney = () => (
 /* ------------------------------ TESTIMONIALS ------------------------------ */
 const Testimonials = () => {
   const reviews = [
-    { name: 'Priya Sharma', role: 'Mother of 2', text: 'My kids love the idlis I make from Mangalam batter. The freshness is unbelievable — just like my grandmother used to make!', rating: 5 },
-    { name: 'Rajesh Iyer', role: 'Software Engineer', text: 'I tried every brand. Mangalam is the only one that tastes truly authentic. The dosa crisps up perfectly every single time.', rating: 5 },
+    { name: 'Priya Sharma', role: 'Mother of 2', text: 'My kids love the IDLI I make from Mangalam batter. The freshness is unbelievable — just like my grandmother used to make!', rating: 5 },
+    { name: 'Rajesh Iyer', role: 'Software Engineer', text: 'I tried every brand. Mangalam is the only one that tastes truly fresh and authentic. The dosa crisps up perfectly every single time.', rating: 5 },
     { name: 'Lakshmi Menon', role: 'Home Chef', text: 'No preservatives, naturally fermented, and unbelievably consistent. This is the real fresh batter we have been waiting for.', rating: 5 },
   ];
   return (
@@ -1087,7 +1066,7 @@ const Testimonials = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center max-w-2xl mx-auto mb-16">
           <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#C9A961] mb-4">Customer Love</span>
           <h2 className="font-display text-4xl md:text-5xl font-bold mb-4">
-            Loved by <span className="italic text-[#C9A961]">Thousands</span> of Families
+            Loved by <span className="italic text-[#C9A961]">Families</span> Everywhere
           </h2>
         </motion.div>
         <div className="grid md:grid-cols-3 gap-6">
@@ -1122,12 +1101,14 @@ const Testimonials = () => {
 /* ----------------------------------- FAQ ---------------------------------- */
 const FAQ = () => {
   const faqs = [
-    { q: 'How long does the batter stay fresh?', a: 'When refrigerated at or below 4°C, our batter stays fresh for 5\u20137 days from manufacturing date. Always check the date printed on the pack.' },
+    { q: 'How long does the batter stay fresh?', a: 'When refrigerated at or below 4°C, our batter stays fresh for 5–7 days from manufacturing date. Always check the date printed on the pack.' },
     { q: 'Do you use any preservatives?', a: 'Absolutely not. We use 100% natural ingredients and traditional fermentation — no preservatives, no artificial additives, no chemicals.' },
+    { q: 'What products does Mangalam Foods currently offer?', a: 'We currently offer Fresh Batters (IDLI Batter, Dosa Batter, Millets Batter — which includes the wholesome goodness of Ragi within our millet blend), Fresh Dips, Fresh Sauces, and Fresh Chutneys. All products are made fresh without preservatives.' },
     { q: 'Where is Mangalam Foods available?', a: 'We are based in Sudbury, MA and serve the greater New England area. For institutional & catering orders nationwide, please contact us directly. All products are USDA Organic, FDA Registered and HACCP Certified.' },
     { q: 'How should I store the batter?', a: 'Keep it refrigerated at all times. Once opened, give it a gentle stir before use. Do not freeze. Use within the date printed on the pack.' },
-    { q: 'Is the batter gluten-free?', a: 'Our Multi Millet and Ragi batters are strictly gluten-free, nut-free, and vegan. Other batters use rice & lentils which are naturally gluten-free.' },
-    { q: 'Can I place bulk / institutional orders?', a: 'Yes! We specialise in scalable catering and institutional accounts including government contracts. Reach out via the contact form below.' },
+    { q: 'Is the batter gluten-free and vegan?', a: 'Yes! Our naturally fermented batters are gluten-free (made without wheat, barley, or rye) and vegan (plant-based and dairy-free). Our Millets Batter, which includes Ragi among other heritage millets, is especially nutrient-dense.' },
+    { q: 'Can I place bulk or institutional orders?', a: 'Yes! We specialise in scalable catering and institutional accounts. Reach out via the contact form below.' },
+    { q: 'Do you do Pop-Up Events?', a: 'Yes! Mangalam Foods offers live pop-up food stations for corporate events, weddings, private parties, community events, and more. Visit our Pop-Up Events page or contact us to book.' },
   ];
   return (
     <section id="faq" className="py-24 md:py-32 bg-white">
@@ -1172,7 +1153,7 @@ const Contact = () => {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Failed');
-      toast.success(data.message || 'Thank you! We’ll get back to you soon.');
+      toast.success(data.message || 'Thank you! We\'ll get back to you soon.');
       setForm({ name: '', email: '', phone: '', product: '', message: '' });
     } catch (err) {
       toast.error(err.message || 'Something went wrong. Please try again.');
@@ -1189,16 +1170,16 @@ const Contact = () => {
           <h2 className="font-display text-4xl md:text-5xl font-bold text-[#1A1410] mb-4">
             Let&rsquo;s Bring Freshness to <span className="italic text-[#2C5F3F]">Your Table</span>
           </h2>
-          <p className="text-foreground/70 text-lg">Whether you&rsquo;re a home customer or institutional buyer — we&rsquo;d love to hear from you.</p>
+          <p className="text-foreground/70 text-lg">Whether you&rsquo;re a home customer, institutional buyer, or interested in a Pop-Up Event — we&rsquo;d love to hear from you.</p>
         </motion.div>
 
         <div className="grid lg:grid-cols-5 gap-8 max-w-6xl mx-auto">
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
             className="lg:col-span-2 space-y-6">
             <div className="rounded-3xl overflow-hidden border border-[#B84A2B]/10 premium-shadow-lg">
-              <img src={IMG.bringTradition} alt="Bring Tradition to Your Table" className="w-full h-auto object-cover" />
+              <img src={IMG.bringTradition} alt="Mangalam Foods — Freshness for your table" className="w-full h-auto object-cover" />
             </div>
-            
+
             <div className="space-y-4">
               {[
                 { icon: MapPin, title: 'Visit Us', text: '621 Boston Post Rd, Sudbury, MA 01776' },
@@ -1227,7 +1208,7 @@ const Contact = () => {
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
                 <label className="text-xs uppercase tracking-wider text-foreground/60 font-semibold mb-2 block">Your Name *</label>
-                <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Priya Sharma"
+                <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Jane Smith"
                   className="rounded-xl border-[#B84A2B]/20 focus-visible:ring-[#B84A2B] h-12" required />
               </div>
               <div>
@@ -1241,14 +1222,17 @@ const Contact = () => {
                   className="rounded-xl border-[#B84A2B]/20 focus-visible:ring-[#B84A2B] h-12" />
               </div>
               <div>
-                <label className="text-xs uppercase tracking-wider text-foreground/60 font-semibold mb-2 block">Interested Product</label>
+                <label className="text-xs uppercase tracking-wider text-foreground/60 font-semibold mb-2 block">Interested In</label>
                 <select value={form.product} onChange={(e) => setForm({ ...form, product: e.target.value })}
                   className="w-full h-12 rounded-xl border border-[#B84A2B]/20 px-3 bg-white focus:outline-none focus:ring-2 focus:ring-[#B84A2B]">
-                  <option value="">Select a product</option>
-                  <option>IDLI Batter</option>
-                  <option>Dosa Batter</option>
-                  <option>Multi Millet Batter</option>
-                  <option>Family Pack</option>
+                  <option value="">Select a product / service</option>
+                  <option>Fresh IDLI Batter</option>
+                  <option>Fresh Dosa Batter</option>
+                  <option>Fresh Millets Batter</option>
+                  <option>Fresh Dips</option>
+                  <option>Fresh Sauces</option>
+                  <option>Fresh Chutneys</option>
+                  <option>Pop-Up Event Booking</option>
                   <option>Bulk / Institutional Order</option>
                 </select>
               </div>
@@ -1260,7 +1244,7 @@ const Contact = () => {
             </div>
             <Button type="submit" disabled={loading} size="lg"
               className="w-full rounded-full bg-[#B84A2B] hover:bg-[#8E3520] text-white h-14 text-base font-semibold premium-shadow">
-              {loading ? 'Sending...' : (<>Send Message <Send className="ml-2 h-4 w-4" /></>)}
+              {loading ? 'Sending...' : <><Send className="mr-2 h-4 w-4" /> Send Message</>}
             </Button>
           </motion.form>
         </div>
@@ -1284,21 +1268,36 @@ const Footer = () => (
             </div>
           </div>
           <p className="mt-6 text-sm text-white/60 leading-relaxed text-center md:text-left">
-            Authentic fresh ready-to-cook batters — naturally fermented, preservative-free, delivered fresh.
+            Fresh, naturally fermented batters, dips, sauces & chutneys — preservative-free, gluten-free, vegan.
           </p>
         </div>
         <div>
           <div className="font-display text-lg font-semibold text-white mb-4">Quick Links</div>
           <ul className="space-y-2 text-sm">
-            {['About', 'Products', 'Process', 'Benefits', 'FAQ', 'Contact'].map((l) => (
-              <li key={l}><a href={`#${l.toLowerCase()}`} className="hover:text-[#C9A961] transition-colors">{l}</a></li>
+            {[
+              { label: 'About', href: '#about' },
+              { label: 'Products', href: '#products' },
+              { label: 'Process', href: '#peek' },
+              { label: 'Benefits', href: '#benefits' },
+              { label: 'FAQ', href: '#faq' },
+              { label: 'Contact', href: '#contact' },
+              { label: 'Pop-Up Events', href: '/pop-up-events' },
+            ].map((l) => (
+              <li key={l.label}><a href={l.href} className="hover:text-[#C9A961] transition-colors">{l.label}</a></li>
             ))}
           </ul>
         </div>
         <div>
           <div className="font-display text-lg font-semibold text-white mb-4">Products</div>
           <ul className="space-y-2 text-sm">
-            {['IDLI Batter', 'Dosa Batter', 'Multi Millet Batter', 'Family Pack'].map((l) => (
+            {[
+              'Fresh IDLI Batter',
+              'Fresh Dosa Batter',
+              'Fresh Millets Batter',
+              'Fresh Dips',
+              'Fresh Sauces',
+              'Fresh Chutneys',
+            ].map((l) => (
               <li key={l}><a href="#products" className="hover:text-[#C9A961] transition-colors">{l}</a></li>
             ))}
           </ul>
@@ -1324,24 +1323,12 @@ const Footer = () => (
 );
 
 /* --------------------------------- APP ------------------------------------ */
-function App() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  useEffect(() => {
-    const hasSeenModal = localStorage.getItem('mangalam_event_modal_seen');
-    if (!hasSeenModal) {
-      const timer = setTimeout(() => {
-        setIsModalOpen(true);
-        localStorage.setItem('mangalam_event_modal_seen', 'true');
-      }, 6000);
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
+export default function App() {
   return (
     <main className="bg-[#FBF7F0] min-h-screen overflow-x-hidden">
-      <Navbar onOpenModal={() => setIsModalOpen(true)} />
+      <Navbar />
       <Hero />
+      <AboutUs />
       <About />
       <Mission />
       <WhyChooseUs />
@@ -1351,16 +1338,11 @@ function App() {
       <Process />
       <Quality />
       <OurPromise />
-      <Capabilities />
-      <JoinJourney onOpenModal={() => setIsModalOpen(true)} />
+      <JoinJourney />
       <Testimonials />
       <FAQ />
       <Contact />
       <Footer />
-      
-      <EventModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </main>
   );
 }
-
-export default App;

@@ -4,14 +4,29 @@ import { Toaster } from 'sonner';
 export const metadata = {
   title: 'Mangalam Foods — Freshness You Can Taste. Tradition You Can Trust.',
   description:
-    'Authentic Fresh batters — IDLI, Dosa & Multi-Millet — naturally fermented, preservative-free, delivered fresh. A Blessing at Every Table.',
+    'Mangalam Foods crafts fresh, naturally fermented batters, dips, sauces, and chutneys made from heritage rice, millets, lentils, and methi. Preservative-free, gluten-free, vegan. A Blessing at Every Table.',
   keywords: [
-    'Mangalam Foods', 'IDLI Batter', 'Dosa Batter', 'Millet Batter',
-    'Fresh Ready-to-Cook Foods', 'Fresh Batter', 'Naturally Fermented', 'Sudbury MA',
+    'Mangalam Foods',
+    'Fresh Batter',
+    'IDLI Batter',
+    'Dosa Batter',
+    'Millets Batter',
+    'Fresh Dips',
+    'Fresh Sauces',
+    'Fresh Chutneys',
+    'Naturally Fermented',
+    'Preservative-Free',
+    'Gluten-Free',
+    'Heritage Grains',
+    'Fresh Ready-to-Cook Foods',
+    'Sudbury MA',
+    'Boston MA',
+    'Fresh Food',
   ],
   openGraph: {
     title: 'Mangalam Foods — A Blessing at Every Table',
-    description: 'Authentic Fresh batters — naturally fermented & preservative-free.',
+    description:
+      'Fresh, naturally fermented batters, dips, sauces & chutneys. Made with heritage rice, millets, lentils & methi. Preservative-free, gluten-free, vegan.',
     type: 'website',
   },
 };
@@ -29,7 +44,7 @@ export default function RootLayout({ children }) {
               '@type': 'FoodEstablishment',
               name: 'Mangalam Foods',
               description:
-                'Authentic naturally fermented fresh batters — IDLI, Dosa, Millet & more.',
+                'Fresh, naturally fermented batters, dips, sauces & chutneys made with heritage rice, millets, lentils & methi. Preservative-free, gluten-free, vegan. A Blessing at Every Table.',
               url: 'https://mangalamfoods.us',
               telephone: '+1-774-287-5154',
               email: 'Admin@mangalamfoods.us',

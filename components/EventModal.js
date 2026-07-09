@@ -9,14 +9,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 
 const PRODUCTS = [
-  { id: 'dosa', name: 'Dosa Batter', desc: 'Classic crispy dosa batter', img: 'https://images.unsplash.com/photo-1743517894265-c86ab035adef?crop=entropy&cs=srgb&fm=jpg&w=400&q=80' },
-  { id: 'idli', name: 'Idli Batter', desc: 'Soft & fluffy idlis', img: 'https://images.unsplash.com/photo-1730191843435-073792ba22bc?crop=entropy&cs=srgb&fm=jpg&w=400&q=80' },
-  { id: 'multi-millet', name: 'Multi Millet Dosa', desc: 'Ancient grains blend', img: 'https://images.unsplash.com/photo-1768729339998-909158957162?crop=entropy&cs=srgb&fm=jpg&w=400&q=80' },
-  { id: 'ragi', name: 'Ragi Dosa', desc: 'Gluten-free & fiber rich', img: 'https://images.unsplash.com/photo-1612257416648-ee7a6c533b4f?crop=entropy&cs=srgb&fm=jpg&w=400&q=80' },
-  { id: 'wheat', name: 'Wheat Dosa', desc: 'Wholesome wheat goodness', img: 'https://images.pexels.com/photos/12392915/pexels-photo-12392915.jpeg?auto=compress&cs=tinysrgb&w=400' },
-  { id: 'uttapam', name: 'Uttapam Batter', desc: 'Thick and savory', img: 'https://images.unsplash.com/photo-1632104667384-06f58cb7ad44?crop=entropy&cs=srgb&fm=jpg&w=400&q=80' },
-  { id: 'appam', name: 'Appam Batter', desc: 'Lacy edges, soft center', img: 'https://images.unsplash.com/photo-1552585960-0e1069ce7405?crop=entropy&cs=srgb&fm=jpg&w=400&q=80' },
-  { id: 'vada', name: 'Vada Batter', desc: 'Crispy lentil donuts', img: 'https://images.pexels.com/photos/5410418/pexels-photo-5410418.jpeg?auto=compress&cs=tinysrgb&w=400' },
+  { id: 'dosa', name: 'Fresh Dosa Batter', desc: 'Classic crispy dosa batter', img: 'https://images.unsplash.com/photo-1743517894265-c86ab035adef?crop=entropy&cs=srgb&fm=jpg&w=400&q=80' },
+  { id: 'idli', name: 'Fresh IDLI Batter', desc: 'Soft & fluffy IDLIs', img: 'https://images.unsplash.com/photo-1730191843435-073792ba22bc?crop=entropy&cs=srgb&fm=jpg&w=400&q=80' },
+  { id: 'millets', name: 'Fresh Millets Batter', desc: 'Nutrient-dense ancient grains', img: 'https://images.unsplash.com/photo-1768729339998-909158957162?crop=entropy&cs=srgb&fm=jpg&w=400&q=80' },
+  { id: 'dips', name: 'Fresh Dips', desc: 'Prepared with vegetables & herbs', img: 'https://images.pexels.com/photos/5410418/pexels-photo-5410418.jpeg?auto=compress&cs=tinysrgb&w=400' },
+  { id: 'sauces', name: 'Fresh Sauces', desc: 'Bold, nourishing accompaniments', img: 'https://images.unsplash.com/photo-1552585960-0e1069ce7405?crop=entropy&cs=srgb&fm=jpg&w=400&q=80' },
+  { id: 'chutneys', name: 'Fresh Chutneys', desc: 'Carefully selected spices & aromatics', img: 'https://images.unsplash.com/photo-1632104667384-06f58cb7ad44?crop=entropy&cs=srgb&fm=jpg&w=400&q=80' },
 ];
 
 const INTERESTS = [
