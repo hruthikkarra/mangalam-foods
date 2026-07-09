@@ -985,7 +985,7 @@ const Mission = () => (
     <div className="container relative text-center max-w-3xl mx-auto">
       <span className="inline-block text-xs tracking-[0.25em] uppercase font-bold text-[#C9A961] mb-4">Our Mission</span>
       <h2 className="font-display text-4xl md:text-5xl font-bold text-white mb-10 max-w-2xl text-balance">
-        To create a sustainable, community-driven food company that:
+        To create a sustainable Product, community-driven food company that:
       </h2>
       <div className="grid sm:grid-cols-2 gap-6 text-left mb-10">
           <div className="flex items-center gap-3 bg-white/5 p-4 rounded-xl border border-white/10">
@@ -1030,10 +1030,10 @@ const JoinJourney = () => (
       <p className="text-lg text-foreground/70 leading-relaxed mb-6">
         Mangalam Foods is just beginning, but our purpose is clear: to nourish people, respect ingredients, and bring heritage-grain tradition to modern tables.
       </p>
-      <p className="text-lg text-foreground/70 leading-relaxed mb-10">
+      <p className="text-lg text-foreground/70 leading-relaxed mb-4">
         Whether through a pack of batter, a fresh chutney, a sauce, a catered meal, or a community partnership, every step forward is part of something larger.
       </p>
-      <p className="text-lg text-foreground/70 leading-relaxed mb-10 font-semibold text-[#8E3520]">
+      <p className="text-lg font-semibold text-[#8E3520] leading-relaxed mb-10">
         Mangalam Foods — A Blessing at Every Table.
       </p>
       <div className="flex flex-wrap justify-center gap-4">

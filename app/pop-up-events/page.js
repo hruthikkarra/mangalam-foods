@@ -130,8 +130,11 @@ const Hero = () => (
           Fresh. Interactive. <span className="italic text-[#C9A961]">Made Live</span> for Your Guests.
         </motion.h1>
 
-        <motion.p variants={fadeUp} className="text-lg md:text-xl text-white/80 leading-relaxed mb-8 max-w-xl">
-          Bring the Mangalam Foods experience to your next event with our fresh, live pop-up food stations — made-to-order, gluten-free, vegan, and unforgettable.
+        <motion.p variants={fadeUp} className="text-lg md:text-xl text-white/80 leading-relaxed mb-4 max-w-xl">
+          Bring the Mangalam Foods experience to your next event with our fresh, live pop-up food stations.
+        </motion.p>
+        <motion.p variants={fadeUp} className="text-base text-white/70 leading-relaxed mb-8 max-w-xl">
+          Our pop-up events are designed for corporate gatherings, catering events, weddings, private parties, community events, office lunches, wellness events, and special celebrations. Each setup features made-to-order dishes prepared from our signature naturally fermented batters, paired with fresh chutneys, podis, and condiments.
         </motion.p>
 
         <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
@@ -176,7 +179,7 @@ const WhatIsPopUp = () => (
           A Mangalam Foods pop-up is a <strong className="text-[#8E3520]">live food experience</strong> where our team prepares fresh menu items on-site using our gluten-free, vegan, naturally fermented batters made from heritage rice, millets, lentils, and methi.
         </p>
         <p className="text-lg text-foreground/70 leading-relaxed mb-6">
-          Guests can enjoy hot, fresh, made-to-order items such as dosas, IDLI, uttapams, dosa waffles, dosa tacos, punugullu, IDLI burgers, and more — served with our house-made chutneys, podis, and condiments.
+          Guests can enjoy hot, fresh, made-to-order items such as dosas, idlis, uttapams, dosa waffles, dosa tacos, punugullu, idli burgers, and more — served with our house-made chutneys, podis, and condiments.
         </p>
         <p className="text-lg text-foreground/70 leading-relaxed mb-8 italic font-display text-[#2C5F3F]">
           It is perfect for events where food is not just served, but experienced.
@@ -280,13 +283,13 @@ const WhyChoose = () => {
 const PopUpMenu = () => {
   const menuItems = [
     { name: 'Dosa', desc: 'Crisp, golden crepes made fresh from our naturally fermented batter.', img: POP_IMGS.dosa },
-    { name: 'IDLI', desc: 'Soft, steamed rice cakes served warm with chutneys and condiments.', img: POP_IMGS.idli },
+    { name: 'Idli', desc: 'Soft, steamed rice cakes served warm with chutneys and condiments.', img: POP_IMGS.idli },
     { name: 'Uttapam', desc: 'Savory griddle cakes with optional toppings and fresh accompaniments.', img: POP_IMGS.uttapam },
     { name: 'Dosa Waffles', desc: 'A modern twist on our classic batter — crisp outside, soft inside, and perfect for creative toppings.', img: POP_IMGS.dosapour },
     { name: 'Dosa Tacos', desc: 'Crisp dosa shells filled with flavorful toppings, chutneys, and fresh garnishes.', img: POP_IMGS.dosa },
-    { name: 'Punugullu', desc: 'Fried IDLI batter bites that are crisp, savory, and perfect as a party snack.', img: POP_IMGS.event },
-    { name: 'IDLI Burger', desc: 'A creative handheld option made with soft IDLIs and flavorful fillings.', img: POP_IMGS.idli },
-    { name: 'Tandoori Spiced IDLI', desc: 'A bold, spiced version of IDLI with a flavorful finish.', img: POP_IMGS.uttapam },
+    { name: 'Punugullu', desc: 'Fried idli batter bites that are crisp, savory, and perfect as a party snack.', img: POP_IMGS.event },
+    { name: 'Idli Burger', desc: 'A creative handheld option made with soft idlis and flavorful fillings.', img: POP_IMGS.idli },
+    { name: 'Tandoori Spiced Idli', desc: 'A bold, spiced version of idli with a flavorful finish.', img: POP_IMGS.uttapam },
   ];
 
   const condiments = [
@@ -359,14 +362,14 @@ const SampleFormats = () => {
       accent: '#B84A2B',
     },
     {
-      title: 'IDLI & Chutney Bar',
-      desc: 'Soft IDLI served with a variety of house-made chutneys and podis.',
+      title: 'Idli & Chutney Bar',
+      desc: 'Soft idlis served with a variety of house-made chutneys and podis.',
       icon: UtensilsCrossed,
       accent: '#2C5F3F',
     },
     {
       title: 'Modern Batter Bites Station',
-      desc: 'Dosa waffles, dosa tacos, punugullu, IDLI burgers, and tandoori spiced IDLI.',
+      desc: 'Dosa waffles, dosa tacos, punugullu, idli burgers, and tandoori spiced idli.',
       icon: Sparkles,
       accent: '#C9A961',
     },
